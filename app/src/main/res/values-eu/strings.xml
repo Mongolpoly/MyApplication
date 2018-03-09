@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Monopoly</string>
+    <string name="login">Idatzi zure erabiltzaile izena eta pasahitza</string>
+    <string name="create">Sortu kontua</string>
+    <string name="sign_in">Izena Eman</string>
+    <string name="log_in">Hasi Saioa</string>
+</resources>

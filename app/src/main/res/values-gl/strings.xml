@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Monopoly</string>
+    <string name="login">Introduce o nome de usuario e contrasinal</string>
+    <string name="create">Crear unha conta</string>
+    <string name="sign_in">Rexistrarse</string>
+    <string name="log_in">Acceso</string>
+</resources>
