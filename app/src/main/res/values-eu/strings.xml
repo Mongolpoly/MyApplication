@@ -4,4 +4,5 @@
     <string name="create">Sortu kontua</string>
     <string name="sign_in">Izena Eman</string>
     <string name="log_in">Hasi Saioa</string>
+    <string name="user">Erabiltzaile</string>
 </resources>

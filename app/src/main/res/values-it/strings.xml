@@ -4,4 +4,5 @@
     <string name="create">Crear un conto</string>
     <string name="sign_in">Registrati</string>
     <string name="log_in">Accesso</string>
+    <string name="user">Utilizzatore</string>
 </resources>

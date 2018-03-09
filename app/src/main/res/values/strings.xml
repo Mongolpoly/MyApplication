@@ -4,4 +4,5 @@
     <string name="create">Create account</string>
     <string name="sign_in">Sign in</string>
     <string name="log_in">Log in</string>
+    <string name="user">User</string>
 </resources>
