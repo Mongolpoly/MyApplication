@@ -5,4 +5,5 @@
     <string name="sign_in">Rexistrarse</string>
     <string name="log_in">Acceso</string>
     <string name="user">Usuario</string>
+    <string name="pass">Contrasinal</string>
 </resources>

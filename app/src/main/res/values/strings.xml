@@ -5,4 +5,8 @@
     <string name="sign_in">Sign in</string>
     <string name="log_in">Log in</string>
     <string name="user">User</string>
+    <string name="pass">Password</string>
+    <string name="error_invalid_password">Invalid Password</string>
+    <string name="error_invalid_user">Invalid User</string>
+    <string name="error_distinct_password">Distinct Password</string>
 </resources>

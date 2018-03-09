@@ -5,4 +5,5 @@
     <string name="sign_in">Registre-se</string>
     <string name="log_in">Acesso</string>
     <string name="user">Usuário</string>
+    <string name="pass">Senha</string>
 </resources>

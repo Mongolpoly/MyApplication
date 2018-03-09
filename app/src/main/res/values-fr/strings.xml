@@ -5,4 +5,5 @@
     <string name="sign_in">S´enregistrer</string>
     <string name="log_in">Accès</string>
     <string name="user">Utilisateur</string>
+    <string name="pass">Passe</string>
 </resources>

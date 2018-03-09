@@ -5,4 +5,5 @@
     <string name="sign_in">Registrati</string>
     <string name="log_in">Accesso</string>
     <string name="user">Utilizzatore</string>
+    <string name="pass">Parola d´ordine</string>
 </resources>

@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle(getString(R.string.log_in));
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //ver en PORTRAIT y dejar la parte de abajo para tirar dado, propiedades... USAR FRAMES
         TextView create_account  = (TextView) findViewById(R.id.createaccount);
         EditText et_user  = (EditText) findViewById(R.id.et_user);
