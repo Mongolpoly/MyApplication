@@ -1,20 +1,35 @@
 package com.example.java.myapplication;
 
+import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Game extends AppCompatActivity {
+import java.security.AccessController;
+
+public class Game extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        TextView tv1 = new TextView(this);
+
+        //Recoger el intent
+        Bundle bundle = getIntent().getExtras();
+        String user = bundle.getString("USUARIO");
+        Toast.makeText(this, "Soy el usuario "+user, Toast.LENGTH_SHORT).show();
+
+        /*TextView tv1 = new TextView(this);
         tv1.setText("TV1");
         tv1.setTextSize(40);
         tv1.setTextColor(Color.BLACK);
@@ -29,7 +44,7 @@ public class Game extends AppCompatActivity {
         fl.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.FILL_PARENT));
         fl.addView(tv1);
         fl.addView(tv2);
-        setContentView(fl);
+        setContentView(fl);*/
         Toast.makeText(this, "METER EL JUEGO AQUÍ", Toast.LENGTH_SHORT).show();
     }
 
@@ -56,6 +71,10 @@ public class Game extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 
     public static int TiraDado(){

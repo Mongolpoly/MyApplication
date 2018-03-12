@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 if (user.equals(realuser)) {
                     if (pass.equals(realpass)) {
                         Intent i = new Intent(MainActivity.this, Game.class);
+                        i.putExtra("USUARIO", user);
                         startActivity(i);
                     }else{
                         Toast.makeText(MainActivity.this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
