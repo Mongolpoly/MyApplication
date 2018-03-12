@@ -32,14 +32,11 @@ public class CreateUser extends AppCompatActivity {
         setContentView(R.layout.activity_create_user);
         // Set up the login form.
         mUserView = (EditText) findViewById(R.id.user_rtv);
-        //populateAutoComplete();
-
         mPasswordView = (EditText) findViewById(R.id.password_rtv);
-
         mPasswordView2 = (EditText) findViewById(R.id.password2_rtv);
         mPasswordView2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) { //listener para entrar con enter
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
                     attemptLogin();
                     return true;
@@ -49,7 +46,7 @@ public class CreateUser extends AppCompatActivity {
         });
 
         Button SignInButton = (Button) findViewById(R.id.sign_in_button);
-        SignInButton.setOnClickListener(new OnClickListener() {
+        SignInButton.setOnClickListener(new OnClickListener() { //listener del boton
             @Override
             public void onClick(View view) {
                 attemptLogin();
@@ -113,11 +110,11 @@ public class CreateUser extends AppCompatActivity {
     }
 
     private boolean isUserValid(String user) {
-        return user.length()>2 && user.length()<51;
+        return user.length()>2 && user.length()<51; //menor que 51 porque es varchar(50) en la BBDD
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() > 4 && password.length()<51;
+        return password.length() > 4 && password.length()<51; //menor que 51 porque es varchar(50) en la BBDD
     }
 
     /**
@@ -130,7 +127,6 @@ public class CreateUser extends AppCompatActivity {
         // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
             mLoginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
@@ -139,7 +135,6 @@ public class CreateUser extends AppCompatActivity {
                     mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
             });
-
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
@@ -149,8 +144,7 @@ public class CreateUser extends AppCompatActivity {
                 }
             });
         } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
+            // The ViewPropertyAnimator APIs are not available, so simply show and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
@@ -172,15 +166,12 @@ public class CreateUser extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 return false;
             }
-
             // TODO: register the new account here.
             return true;
         }
@@ -189,7 +180,6 @@ public class CreateUser extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
             if (success) {
                 finish();
             } else {
