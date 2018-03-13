@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 final String realpass =  "";//buscar en la bbdd la pass de user
                 if (user.equals(realuser)) {
                     if (pass.equals(realpass)) {
-                        Intent i = new Intent(MainActivity.this, Game.class);
+                        Intent i = new Intent(MainActivity.this, ScrollingActivity.class);
                         i.putExtra("USUARIO", user);
                         startActivity(i);
                     }else{
