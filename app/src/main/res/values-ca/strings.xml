@@ -2,8 +2,11 @@
     <string name="app_name">Monopoly</string>
     <string name="login">Introdueixi usuari i contrasenya</string>
     <string name="create">Crear una compte</string>
-    <string name="sign_in">Registrar</string>
+    <string name="sign_up">Registrar</string>
     <string name="log_in">Accedir</string>
     <string name="user">Usuari</string>
     <string name="pass">Contrasenya</string>
+    <string name="error_invalid_password">Contrasenya no vàlid</string>
+    <string name="error_invalid_user">Usuari no vàlid</string>
+    <string name="error_distinct_password">Les contrasenyes no coincideixen</string>
 </resources>

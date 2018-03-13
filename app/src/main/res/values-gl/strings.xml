@@ -2,8 +2,11 @@
     <string name="app_name">Monopoly</string>
     <string name="login">Introduce o nome de usuario e contrasinal</string>
     <string name="create">Crear unha conta</string>
-    <string name="sign_in">Rexistrarse</string>
+    <string name="sign_up">Rexistrarse</string>
     <string name="log_in">Acceso</string>
     <string name="user">Usuario</string>
     <string name="pass">Contrasinal</string>
+    <string name="error_distinct_password">Os contrasinais non coinciden</string>
+    <string name="error_invalid_user">Contrasinal non válido</string>
+    <string name="error_invalid_password">Usuario non válido</string>
 </resources>

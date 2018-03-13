@@ -2,8 +2,11 @@
     <string name="app_name">Monopoly</string>
     <string name="login">Entrez le nom d´utilisateur et le mot de passe</string>
     <string name="create">Créer un compte</string>
-    <string name="sign_in">S´enregistrer</string>
+    <string name="sign_up">S´enregistrer</string>
     <string name="log_in">Accès</string>
     <string name="user">Utilisateur</string>
     <string name="pass">Passe</string>
+    <string name="error_invalid_password">Mot de passe invalide</string>
+    <string name="error_invalid_user">Utilisateur invalide</string>
+    <string name="error_distinct_password">Différents mots de passe</string>
 </resources>

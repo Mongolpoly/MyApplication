@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/pass"
                     android:imeActionId="6"
-                    android:imeActionLabel="@string/sign_in"
+                    android:imeActionLabel="@string/sign_up"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/pass"
                     android:imeActionId="6"
-                    android:imeActionLabel="@string/sign_in"
+                    android:imeActionLabel="@string/sign_up"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
@@ -88,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/sign_in"
+                android:text="@string/sign_up"
                 android:textStyle="bold" />
 
         </LinearLayout>

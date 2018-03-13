@@ -2,8 +2,11 @@
     <string name="app_name">Monopoly</string>
     <string name="login">Imposta nome e parola d´ordine</string>
     <string name="create">Crear un conto</string>
-    <string name="sign_in">Registrati</string>
+    <string name="sign_up">Registrati</string>
     <string name="log_in">Accesso</string>
     <string name="user">Utilizzatore</string>
     <string name="pass">Parola d´ordine</string>
+    <string name="error_distinct_password">Le parola d´ordine non corrispondono</string>
+    <string name="error_invalid_password">Parola d´ordine non è valida</string>
+    <string name="error_invalid_user">Utilizzatore non valido</string>
 </resources>

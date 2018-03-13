@@ -2,8 +2,11 @@
     <string name="app_name">Monopoly</string>
     <string name="login">Idatzi zure erabiltzaile izena eta pasahitza</string>
     <string name="create">Sortu kontua</string>
-    <string name="sign_in">Izena Eman</string>
+    <string name="sign_up">Izena Eman</string>
     <string name="log_in">Hasi Saioa</string>
     <string name="user">Erabiltzaile</string>
     <string name="pass">Pasahitza</string>
+    <string name="error_invalid_user">Erabiltzaile baliogabea</string>
+    <string name="error_invalid_password">Pasahitz baliogabea</string>
+    <string name="error_distinct_password">Pasahitzak ez datoz bat</string>
 </resources>
