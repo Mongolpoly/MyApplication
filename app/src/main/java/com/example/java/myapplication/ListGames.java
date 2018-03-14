@@ -60,7 +60,6 @@ public class ListGames extends Activity {
                         Toast.makeText(getApplicationContext(), getString(R.string.closed) , Toast.LENGTH_LONG).show();
                     }
                 }
-                Toast.makeText(getApplicationContext(),"Position :"+position+"  ListItem : " +itemValue , Toast.LENGTH_LONG).show();
             }
         });
     }

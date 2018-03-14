@@ -29,17 +29,16 @@ public class MainActivity extends Activity {
         setTitle(getString(R.string.log_in));
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //ver en PORTRAIT y dejar la parte de abajo para tirar dado, propiedades... USAR FRAMES
         TextView create_account  = (TextView) findViewById(R.id.createaccount);
-        EditText et_user  = (EditText) findViewById(R.id.et_user);
-        EditText et_pass  = (EditText) findViewById(R.id.et_pass);
-        final String user = et_user.getText().toString();
-        final String pass = et_pass.getText().toString();
-
-        Button login = (Button) findViewById(R.id.login_button);
+        final EditText et_user  = (EditText) findViewById(R.id.et_user);
+        final EditText et_pass  = (EditText) findViewById(R.id.et_pass);
+        final Button login = (Button) findViewById(R.id.login_button);
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 conectaBD();
-                final String realuser=  "";
-                final String realpass =  "";//buscar en la bbdd la pass de user
+                String user = et_user.getText().toString();
+                String pass = et_pass.getText().toString();
+                String realuser=  "test";//buscar en la bbdd si existe el user
+                String realpass =  "test";//buscar en la bbdd la pass de user
                 if (user.equals(realuser)) {
                     if (pass.equals(realpass)) {
                         Intent i = new Intent(MainActivity.this, ListGames.class);
