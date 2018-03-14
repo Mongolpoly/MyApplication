@@ -31,24 +31,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <AutoCompleteTextView
+                android:id="@+id/user_rtv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <AutoCompleteTextView
-                    android:id="@+id/user_rtv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/user"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:hint="@string/user"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:singleLine="true" />
 
                 <EditText
                     android:id="@+id/password_rtv"
@@ -62,12 +52,6 @@
                     android:maxLines="1"
                     android:singleLine="true" />
 
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
                 <EditText
                     android:id="@+id/password2_rtv"
                     android:layout_width="match_parent"
@@ -79,8 +63,6 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true" />
-
-            </android.support.design.widget.TextInputLayout>
 
             <Button
                 android:id="@+id/sign_in_button"

@@ -2,10 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.java.myapplication">
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +24,18 @@
         </activity>
         <activity
             android:name=".CreateUser"
-            android:label="@string/sign_up">
+            android:label="@string/sign_up"
+            android:parentActivityName=".MainActivity"
+            android:theme="@android:style/Theme.DeviceDefault.Light.DarkActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".ListGames"
+            android:label="@string/games"
+            android:parentActivityName=".MainActivity"
+            android:theme="@android:style/Theme.DeviceDefault.Light.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -31,7 +43,22 @@
         <activity
             android:name=".Game"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-        <activity android:name=".ListGames"></activity>
+        <activity
+            android:name=".CreateGame"
+            android:theme="@android:style/Theme.DeviceDefault.Light.DarkActionBar"
+            android:parentActivityName=".ListGames">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ListGames" />
+        </activity>
+        <activity
+            android:name=".JoinGame"
+            android:theme="@android:style/Theme.DeviceDefault.Light.DarkActionBar"
+            android:parentActivityName=".ListGames">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ListGames" />
+        </activity>
     </application>
 
 </manifest>

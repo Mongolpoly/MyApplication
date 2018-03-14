@@ -9,4 +9,8 @@
     <string name="error_invalid_password">Contraseña no válida</string>
     <string name="error_invalid_user">Usuario no válido</string>
     <string name="error_distinct_password">Las contraseñas no coinciden</string>
+    <string name="create_game">Crear partida</string>
+    <string name="games">Partidas</string>
+    <string name="closed">Cerrada</string>
+    <string name="max_users">Establecer jugadores (2-8)</string>
 </resources>

@@ -9,4 +9,8 @@
     <string name="error_invalid_user">Erabiltzaile baliogabea</string>
     <string name="error_invalid_password">Pasahitz baliogabea</string>
     <string name="error_distinct_password">Pasahitzak ez datoz bat</string>
+    <string name="create_game">Sortu jokoa</string>
+    <string name="games">Jokoak</string>
+    <string name="closed">Itxia</string>
+    <string name="max_users">Ezarri jokalariak (2-8)</string>
 </resources>

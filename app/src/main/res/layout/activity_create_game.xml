@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgreen"
+    tools:context="com.example.java.myapplication.CreateGame">
+
+    <EditText
+        android:id="@+id/et_njugadores"
+        android:layout_width="53dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:inputType="number"
+        android:maxLength="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="60dp" />
+
+    <TextView
+        android:id="@+id/tv_n_jugadores"
+        android:layout_width="148dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/max_users"
+        app:layout_constraintEnd_toStartOf="@+id/et_njugadores"
+        app:layout_constraintHorizontal_bias="0.619"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="92dp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="348dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_prev"
+        android:layout_width="45dp"
+        android:layout_height="191dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="52dp"
+        android:text="-"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_n_jugadores" />
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="40dp"
+        android:layout_height="191dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="52dp"
+        android:text="-"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_n_jugadores" />
+
+    <ImageSwitcher
+        android:id="@+id/tableros"
+        android:layout_width="302dp"
+        android:layout_height="190dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="52dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_next"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btn_prev"
+        app:layout_constraintTop_toBottomOf="@+id/tv_n_jugadores" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,8 +1,8 @@
 package com.example.java.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +14,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private static final String RUTA = "127.0.0.1";
     private static final String PUERTO = "3306";
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 final String realpass =  "";//buscar en la bbdd la pass de user
                 if (user.equals(realuser)) {
                     if (pass.equals(realpass)) {
-                        Intent i = new Intent(MainActivity.this, ScrollingActivity.class);
+                        Intent i = new Intent(MainActivity.this, ListGames.class);
                         i.putExtra("USUARIO", user);
                         startActivity(i);
                     }else{
@@ -100,14 +100,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }
-    }
-
-    public boolean login(String userpass, String pass){
-        if (pass.equals(userpass)){
-            return true;
-        }else{
-            return false;
         }
     }
 

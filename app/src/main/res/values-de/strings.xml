@@ -9,4 +9,8 @@
     <string name="error_distinct_password">Verschiedene passwörter</string>
     <string name="error_invalid_user">Ungültiges passwort</string>
     <string name="error_invalid_password">Ungültiger benutzer</string>
+    <string name="create_game">Spiel erstellen</string>
+    <string name="games">Spiele</string>
+    <string name="closed">Geschlossen</string>
+    <string name="max_users">"Setze spieler (2-8) "</string>
 </resources>

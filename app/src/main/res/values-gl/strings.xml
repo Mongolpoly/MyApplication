@@ -9,4 +9,8 @@
     <string name="error_distinct_password">Os contrasinais non coinciden</string>
     <string name="error_invalid_user">Contrasinal non válido</string>
     <string name="error_invalid_password">Usuario non válido</string>
+    <string name="create_game">Crear xogo</string>
+    <string name="games">Xogos</string>
+    <string name="closed">Pechada</string>
+    <string name="max_users">Establecer os xogadores (2-8)</string>
 </resources>

@@ -3,6 +3,7 @@ package com.example.java.myapplication;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -15,7 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class CreateUser extends AppCompatActivity {
+public class CreateUser extends Activity {
 
     private UserLoginTask mAuthTask = null;
 

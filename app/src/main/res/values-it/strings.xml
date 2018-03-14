@@ -9,4 +9,8 @@
     <string name="error_distinct_password">Le parola d´ordine non corrispondono</string>
     <string name="error_invalid_password">Parola d´ordine non è valida</string>
     <string name="error_invalid_user">Utilizzatore non valido</string>
+    <string name="create_game">Creare un gioco</string>
+    <string name="games">Giochi</string>
+    <string name="closed">Chiusa</string>
+    <string name="max_users">Imposta giocatori (2-8)</string>
 </resources>

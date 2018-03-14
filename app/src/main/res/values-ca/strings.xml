@@ -9,4 +9,8 @@
     <string name="error_invalid_password">Contrasenya no vàlid</string>
     <string name="error_invalid_user">Usuari no vàlid</string>
     <string name="error_distinct_password">Les contrasenyes no coincideixen</string>
+    <string name="create_game">Crear partida</string>
+    <string name="games">Partides</string>
+    <string name="closed">Tancada</string>
+    <string name="max_users">Establir jugadors (2-8)</string>
 </resources>
