@@ -13,4 +13,12 @@
     <string name="games">Partidas</string>
     <string name="closed">Cerrada</string>
     <string name="max_users">Establecer jugadores (2-8)</string>
+    <string name="red">Rojo</string>
+    <string name="blue">Azul</string>
+    <string name="yellow">Amarillo</string>
+    <string name="purple">Morado</string>
+    <string name="orange">Naranja</string>
+    <string name="green">Verde</string>
+    <string name="white">Blanco</string>
+    <string name="black">Negro</string>
 </resources>

@@ -13,4 +13,12 @@
     <string name="games">Giochi</string>
     <string name="closed">Chiusa</string>
     <string name="max_users">Imposta giocatori (2-8)</string>
+    <string name="black">Nero</string>
+    <string name="red">Rosso</string>
+    <string name="white">Bianco</string>
+    <string name="green">Verde</string>
+    <string name="orange">Arancione</string>
+    <string name="purple">Porpora</string>
+    <string name="yellow">Giallo</string>
+    <string name="blue">Blu</string>
 </resources>

@@ -13,4 +13,12 @@
     <string name="games">Jeux</string>
     <string name="closed">Fermé</string>
     <string name="max_users">Réglez les joueurs (2-8)</string>
+    <string name="black">Noir</string>
+    <string name="red">Rouge</string>
+    <string name="blue">Bleu</string>
+    <string name="white">Blanc</string>
+    <string name="green">Vert</string>
+    <string name="orange">Orange</string>
+    <string name="purple">Violet</string>
+    <string name="yellow">Jaune</string>
 </resources>

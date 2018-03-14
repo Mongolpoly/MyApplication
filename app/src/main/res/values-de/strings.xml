@@ -13,4 +13,12 @@
     <string name="games">Spiele</string>
     <string name="closed">Geschlossen</string>
     <string name="max_users">"Setze spieler (2-8) "</string>
+    <string name="black">Schwarz</string>
+    <string name="white">Weiß</string>
+    <string name="green">Grün</string>
+    <string name="orange">Orange</string>
+    <string name="purple">Lila</string>
+    <string name="yellow">Gelb</string>
+    <string name="blue">Blau</string>
+    <string name="red">Rot</string>
 </resources>

@@ -13,4 +13,12 @@
     <string name="games">Partides</string>
     <string name="closed">Tancada</string>
     <string name="max_users">Establir jugadors (2-8)</string>
+    <string name="red">Vermell</string>
+    <string name="blue">Blau</string>
+    <string name="yellow">Groc</string>
+    <string name="orange">Taronja</string>
+    <string name="purple">Morat</string>
+    <string name="black">Negre</string>
+    <string name="green">Verd</string>
+    <string name="white">Blanc</string>
 </resources>

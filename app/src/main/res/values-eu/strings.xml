@@ -13,4 +13,12 @@
     <string name="games">Jokoak</string>
     <string name="closed">Itxia</string>
     <string name="max_users">Ezarri jokalariak (2-8)</string>
+    <string name="black">Beltza</string>
+    <string name="white">Zuri</string>
+    <string name="green">Berdea</string>
+    <string name="orange">Laranja</string>
+    <string name="purple">Morea</string>
+    <string name="yellow">Horia</string>
+    <string name="blue">Urdinak</string>
+    <string name="red">Gorria</string>
 </resources>

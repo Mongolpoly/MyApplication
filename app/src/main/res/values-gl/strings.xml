@@ -13,4 +13,12 @@
     <string name="games">Xogos</string>
     <string name="closed">Pechada</string>
     <string name="max_users">Establecer os xogadores (2-8)</string>
+    <string name="black">Negro</string>
+    <string name="white">Branco</string>
+    <string name="green">Verde</string>
+    <string name="orange">Laranxa</string>
+    <string name="purple">Violeta</string>
+    <string name="yellow">Amarelo</string>
+    <string name="red">Vermello</string>
+    <string name="blue">Azul</string>
 </resources>
