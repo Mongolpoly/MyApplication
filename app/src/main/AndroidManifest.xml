@@ -41,10 +41,8 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".Game"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-        <activity
             android:name=".CreateGame"
+            android:label="@string/create_game"
             android:theme="@android:style/Theme.DeviceDefault.Light.DarkActionBar"
             android:parentActivityName=".ListGames">
             <meta-data
@@ -53,12 +51,16 @@
         </activity>
         <activity
             android:name=".JoinGame"
+            android:label="@string/join_game"
             android:theme="@android:style/Theme.DeviceDefault.Light.DarkActionBar"
             android:parentActivityName=".ListGames">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ListGames" />
         </activity>
+        <activity
+            android:name=".Game"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
     </application>
 
 </manifest>

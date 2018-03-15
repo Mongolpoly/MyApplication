@@ -18,54 +18,113 @@ import java.util.List;
 public class CreateGame extends Activity {
 
     String user;
+    Spinner spinner;
+    EditText et_num;
+    Button menos, mas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_game);
-        user = getIntent().getStringExtra("USUARIO");
-        final EditText et_num = (EditText) findViewById(R.id.et_njugadores);
-        et_num.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String num = et_num.getText().toString();
-                int n = 0;
-                if (!num.equals("")) {
-                    n = Integer.parseInt(num);
-                    if (n < 2 || n > 8) {
-                        et_num.setText("");
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged (Editable editable){}
-        });
-        Spinner spinner = findViewById(R.id.spinner);
+        int jugadores = 2;
+        user = getIntent().getStringExtra("user");
+        spinner = findViewById(R.id.spinner);
+        et_num = (EditText) findViewById(R.id.et_njugadores);
+        mas = (Button) findViewById(R.id.btn_plus);
+        menos = (Button) findViewById(R.id.btn_minus);
         List<String> list = new ArrayList<String>();
-        list.add(getString(R.string.red));
-        list.add(getString(R.string.blue));
-        list.add(getString(R.string.yellow));
-        list.add(getString(R.string.purple));
-        list.add(getString(R.string.orange));
-        list.add(getString(R.string.green));
-        list.add(getString(R.string.white));
-        list.add(getString(R.string.black));
+        for (int i=1;i<=jugadores;i++){
+            list.add(color(i));
+        }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        Button btn = (Button) findViewById(R.id.btn_create_game);
+        et_num.setKeyListener(null);
+        et_num.setText(""+jugadores);
+        menos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int n = Integer.parseInt(et_num.getText().toString());
+                et_num.setText(""+n--);
+                if (n==2){
+                    menos.setEnabled(false);
+                }
+            }
+        });
+        mas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int n = Integer.parseInt(et_num.getText().toString());
+                et_num.setText(""+n++);
+                if (n==8){
+                    menos.setEnabled(false);
+                }
+            }
+        });
+        Button btn = (Button) findViewById(R.id.btn_join_game);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(CreateGame.this, Game.class);
-                //i.putExtra(spinner);
-                //i.putExtra()
+                if(et_num.getText().toString().equals("")){
+                    et_num.requestFocus();
+                    et_num.setError(getString(R.string.error_empty_field));
+                }else{
+                    int jugadores = Integer.parseInt(et_num.getText().toString());
+                    String color = spinner.getSelectedItem().toString();
+                    if (crearPartida(jugadores, fichaColor(color))){ //si crea la partida bien
+                        Intent i = new Intent(CreateGame.this, Game.class);
+                        i.putExtra("user", user);
+                        i.putExtra("ficha", (fichaColor(color)));
+                        i.putExtra("jugadores", Integer.parseInt(et_num.getText().toString()));
+                        startActivity(i);
+                    }else{
+                        finish();
+                        Toast.makeText(CreateGame.this, "", Toast.LENGTH_SHORT).show(); //sin texto porque debería crearla siempre
+                    }
+                }
             }
         });
+    }
 
+    private boolean crearPartida(int jugadores, int color) { //TODO: CREAR PARTIDA
+        if (jugadores>1 && jugadores <9) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public String color(int c){
+        switch (c){
+            case 1: return getString(R.string.red);
+            case 2: return getString(R.string.blue);
+            case 3: return getString(R.string.yellow);
+            case 4: return getString(R.string.purple);
+            case 5: return getString(R.string.orange);
+            case 6: return getString(R.string.green);
+            case 7: return getString(R.string.white);
+            case 8: return getString(R.string.black);
+            default: return getString(R.string.red);
+        }
+    }
+
+    public int fichaColor(String color){
+        if (color.equals(getString(R.string.red))){
+            return 1;
+        } else if(color.equals(getString(R.string.blue))){
+            return 2;
+        }else if(color.equals(getString(R.string.yellow))){
+            return 3;
+        }else if(color.equals(getString(R.string.purple))){
+            return 4;
+        }else if(color.equals(getString(R.string.orange))){
+            return 5;
+        }else if(color.equals(getString(R.string.green))){
+            return 6;
+        }else if(color.equals(getString(R.string.white))){
+            return 7;
+        }else{
+            return 8;
+        }
     }
 }

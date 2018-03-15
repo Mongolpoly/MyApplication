@@ -21,4 +21,9 @@
     <string name="yellow">Gelb</string>
     <string name="blue">Blau</string>
     <string name="red">Rot</string>
+    <string name="error_incorrect_password">Falsches passwort</string>
+    <string name="error_inexistent_user">"Der benutzer existiert nicht "</string>
+    <string name="error_empty_field">Füllen sie dieses feld aus</string>
+    <string name="select_color">Wählen sie ihre farbe</string>
+    <string name="join_game">Trete dem spiel bei</string>
 </resources>

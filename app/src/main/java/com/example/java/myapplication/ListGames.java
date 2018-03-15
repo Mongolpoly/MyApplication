@@ -22,8 +22,7 @@ public class ListGames extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_games);
-        Bundle bundle = new Bundle();
-        user = getIntent().getStringExtra("USUARIO");
+        user = getIntent().getStringExtra("user");
         listView = (ListView) findViewById(R.id.list);
         String[] values = new String[] {
                 getString(R.string.create_game),
@@ -49,15 +48,18 @@ public class ListGames extends Activity {
                 String itemValue = (String) listView.getItemAtPosition(position);
                 if (position==0){
                     Intent i = new Intent(ListGames.this, CreateGame.class); //crear la partida
-                    i.putExtra("USUARIO", user);
+                    i.putExtra("user", user);
                     startActivity(i);
                 }else{
                     if(unirsepartida(position)){
                         Intent i = new Intent(ListGames.this, JoinGame.class); //unirse a una partida
-                        i.putExtra("USUARIO", user);
+                        i.putExtra("user", user);
+                        //listView.getOnItemSelectedListener().toString().substring(0,listView.getOnItemSelectedListener().toString().indexOf("-")-1);
+                        i.putExtra("partida", listView.getItemAtPosition(position).toString());
                         startActivity(i);
                     }else{
                         Toast.makeText(getApplicationContext(), getString(R.string.closed) , Toast.LENGTH_LONG).show();
+                        recargar();
                     }
                 }
             }
@@ -92,11 +94,15 @@ public class ListGames extends Activity {
     public boolean unirsepartida(int pos){
         //accedes a la partida con un insert vacío
         int maxjugadores = 5; //json con n_jugadores de la tabla partida
-        int jugadores = 5; //json con n_jugadores de la tabla partida
+        int jugadores = 2; //json con n_jugadores de la tabla partida
         if (maxjugadores>=jugadores+1){
             return true;
         } else {
             return false;
         }
+    }
+
+    private void recargar() {
+        //TODO: Hacer la recarga del lisview
     }
 }

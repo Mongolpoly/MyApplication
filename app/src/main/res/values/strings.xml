@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Monopoly</string>
+    <string name="ZAR" translatable="false">Zaragoza</string>
+    <string name="SAO" translatable="false">São Paolo</string>
+    <string name="LON" translatable="false">London</string>
+    <string name="WAS" translatable="false">Washington</string>
     <string name="login">Set name and password</string>
     <string name="create">Create account</string>
     <string name="create_game">Create game</string>
+    <string name="join_game">Join game</string>
     <string name="sign_up">Sign up</string>
     <string name="log_in">Log in</string>
     <string name="user">User</string>
@@ -10,6 +15,9 @@
     <string name="error_invalid_password">Invalid password</string>
     <string name="error_invalid_user">Invalid user</string>
     <string name="error_distinct_password">Different passwords</string>
+    <string name="error_incorrect_password">Incorrect password</string>
+    <string name="error_inexistent_user">Username doesn\'t exist</string>
+    <string name="error_empty_field">Fill this field</string>
     <string name="games">Games</string>
     <string name="closed">Closed</string>
     <string name="max_users">Set players (2-8)</string>
@@ -21,4 +29,5 @@
     <string name="green">Green</string>
     <string name="white">White</string>
     <string name="black">Black</string>
+    <string name="select_color">Select your color</string>
 </resources>

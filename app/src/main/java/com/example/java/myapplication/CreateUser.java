@@ -24,14 +24,11 @@ public class CreateUser extends Activity {
     private EditText mUserView;
     private EditText mPasswordView;
     private EditText mPasswordView2;
-    private View mProgressView;
-    private View mLoginFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
-        // Set up the login form.
         mUserView = (EditText) findViewById(R.id.user_rtv);
         mPasswordView = (EditText) findViewById(R.id.password_rtv);
         mPasswordView2 = (EditText) findViewById(R.id.password2_rtv);
@@ -53,9 +50,6 @@ public class CreateUser extends Activity {
                 attemptLogin();
             }
         });
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
 
     private void attemptLogin() {
@@ -74,7 +68,6 @@ public class CreateUser extends Activity {
 
         boolean cancel = false;
         View focusView = null;
-
 
         // Check for a valid user.
         if (!isUserValid(user)) {
@@ -97,14 +90,10 @@ public class CreateUser extends Activity {
             cancel = true;
         }
 
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+        if (cancel) { // There was an error; don't attempt login and focus the first form field with an error.
             focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            showProgress(true);
+        } else { // Show a progress spinner, and kick off a background task to perform the user login attempt.
+            //showProgress(true);
             mAuthTask = new UserLoginTask(user, password);
             mAuthTask.execute((Void) null);
         }
@@ -118,43 +107,7 @@ public class CreateUser extends Activity {
         return password.length() > 4 && password.length()<51; //menor que 51 porque es varchar(50) en la BBDD
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-    }
-
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate the user.
-     */
+    //Represents an asynchronous login/registration task used to authenticate the user.
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mUser;
@@ -167,12 +120,11 @@ public class CreateUser extends Activity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            try {
-                // Simulate network access.
+            /*try { // Simulate network access.
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 return false;
-            }
+            }*/
             // TODO: register the new account here.
             return true;
         }
@@ -180,7 +132,6 @@ public class CreateUser extends Activity {
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-            showProgress(false);
             if (success) {
                 finish();
             } else {
@@ -192,7 +143,6 @@ public class CreateUser extends Activity {
         @Override
         protected void onCancelled() {
             mAuthTask = null;
-            showProgress(false);
         }
     }
 }

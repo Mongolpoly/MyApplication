@@ -34,22 +34,37 @@ public class MainActivity extends Activity {
         final Button login = (Button) findViewById(R.id.login_button);
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                conectaBD();
                 String user = et_user.getText().toString();
                 String pass = et_pass.getText().toString();
                 String realuser=  "test";//buscar en la bbdd si existe el user
                 String realpass =  "test";//buscar en la bbdd la pass de user
-                if (user.equals(realuser)) {
-                    if (pass.equals(realpass)) {
-                        Intent i = new Intent(MainActivity.this, ListGames.class);
-                        i.putExtra("USUARIO", user);
-                        startActivity(i);
-                    }else{
-                        Toast.makeText(MainActivity.this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
-                    }
-                }else{
-                    Toast.makeText(MainActivity.this, "El usuario no existe", Toast.LENGTH_SHORT).show();
+                boolean vacio = false;
+                if (et_pass.getText().toString().equals("")){
+                    et_pass.setError(getString(R.string.error_empty_field));
+                    et_pass.requestFocus();
+                    vacio = true;
                 }
+                if (et_user.getText().toString().equals("")){
+                    et_user.setError(getString(R.string.error_empty_field));
+                    et_user.requestFocus();
+                    vacio = true;
+                }
+                if(!vacio){
+                    if (user.equals(realuser)) {
+                        if (pass.equals(realpass)) {
+                            Intent i = new Intent(MainActivity.this, ListGames.class);
+                            i.putExtra("user", user);
+                            startActivity(i);
+                        }else{
+                            et_pass.setError(getString(R.string.error_incorrect_password));
+                            et_pass.requestFocus();
+                        }
+                    }else{
+                        et_user.setError(getString(R.string.error_inexistent_user));
+                        et_user.requestFocus();
+                    }
+                }
+
             }
         });
         create_account.setOnClickListener(new View.OnClickListener() {
@@ -85,40 +100,4 @@ public class MainActivity extends Activity {
         super.onResume();
     }
 
-    public void conectaBD(){
-        Connection con = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            con = DriverManager.getConnection("jdbc:mysql://" + RUTA + ":" + PUERTO + "/" + BD, USER, PASSWORD);
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /*public static int LeeFichero(){
-        File f1 = new File(R.id.txt);
-        Scanner sr = null;
-        try {
-            sr = new Scanner(f1);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        String palabra;
-        int c = 0;
-        while(sr.hasNext()){
-            palabra = sr.next();
-            System.out.println(palabra);
-            c++;
-        }
-        System.out.println("Hay "+c+" palabras");
-        sr.close();
-        return c;
-    }*/
 }

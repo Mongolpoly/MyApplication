@@ -5,9 +5,9 @@
     <string name="sign_up">Registrati</string>
     <string name="log_in">Accesso</string>
     <string name="user">Utilizzatore</string>
-    <string name="pass">Parola d´ordine</string>
+    <string name="pass">Parola d\'ordine</string>
     <string name="error_distinct_password">Le parola d´ordine non corrispondono</string>
-    <string name="error_invalid_password">Parola d´ordine non è valida</string>
+    <string name="error_invalid_password">Parola d\'ordine non è valida</string>
     <string name="error_invalid_user">Utilizzatore non valido</string>
     <string name="create_game">Creare un gioco</string>
     <string name="games">Giochi</string>
@@ -21,4 +21,9 @@
     <string name="purple">Porpora</string>
     <string name="yellow">Giallo</string>
     <string name="blue">Blu</string>
+    <string name="error_incorrect_password">Parola d\'ordine errata</string>
+    <string name="error_inexistent_user">"L'utente non esiste "</string>
+    <string name="error_empty_field">Compila questo campo</string>
+    <string name="select_color">Seleziona il tuo colore</string>
+    <string name="join_game">Unisciti al gioco</string>
 </resources>

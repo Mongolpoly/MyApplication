@@ -21,4 +21,9 @@
     <string name="orange">Orange</string>
     <string name="purple">Violet</string>
     <string name="yellow">Jaune</string>
+    <string name="error_incorrect_password">"Mot de passe incorrect "</string>
+    <string name="error_inexistent_user">L\'utilisateur n\'existe pas</string>
+    <string name="error_empty_field">Remplissez ce champ</string>
+    <string name="select_color">Sélectionnez votre couleur</string>
+    <string name="join_game">Rejoignez le jeu</string>
 </resources>

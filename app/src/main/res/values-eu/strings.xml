@@ -21,4 +21,9 @@
     <string name="yellow">Horia</string>
     <string name="blue">Urdinak</string>
     <string name="red">Gorria</string>
+    <string name="error_incorrect_password">Pasahitz okerra</string>
+    <string name="error_inexistent_user">Erabiltzailea ez dago</string>
+    <string name="error_empty_field">Eremu hau bete</string>
+    <string name="select_color">Aukeratu zure kolorea</string>
+    <string name="join_game">Atera jokoa</string>
 </resources>

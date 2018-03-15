@@ -21,4 +21,9 @@
     <string name="yellow">Amarelo</string>
     <string name="red">Vermello</string>
     <string name="blue">Azul</string>
+    <string name="error_incorrect_password">"Contrasinal incorrecto "</string>
+    <string name="error_inexistent_user">O usuario non existe</string>
+    <string name="error_empty_field">Encha este campo</string>
+    <string name="select_color">Selecciona a túa cor</string>
+    <string name="join_game">Únete ao xogo</string>
 </resources>
