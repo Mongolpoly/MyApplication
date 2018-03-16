@@ -26,4 +26,6 @@
     <string name="error_empty_field">Eremu hau bete</string>
     <string name="select_color">Aukeratu zure kolorea</string>
     <string name="join_game">Atera jokoa</string>
+    <string name="users">Erabiltzaileak</string>
+    <string name="users_max">Gehienezko erabiltzaileak</string>
 </resources>

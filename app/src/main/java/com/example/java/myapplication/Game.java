@@ -15,8 +15,9 @@ public class Game extends Activity {
         //Recoger el intent
         user = getIntent().getStringExtra("user");
         int ficha = getIntent().getIntExtra("ficha", 1);
+        String city = getIntent().getStringExtra("city");
         int jugadores = getIntent().getIntExtra("jugadores", 2);
-        Toast.makeText(this, "Soy el usuario "+user+" con el valor de ficha "+ficha+" y un máximo de "+jugadores+" jugadores", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Ficha "+ficha+". Jugadores "+jugadores+". Ciudad: "+city, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -44,10 +45,10 @@ public class Game extends Activity {
         super.onResume();
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         //Opción de salir del juego
-    }
+    }*/
 
     public static int TiraDado(){
         int max = 6;

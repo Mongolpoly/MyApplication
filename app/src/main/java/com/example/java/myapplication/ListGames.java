@@ -23,19 +23,22 @@ public class ListGames extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_games);
         user = getIntent().getStringExtra("user");
+        final int[] maxjugadores = {5,8,4,2}; //TODO: JSON
+        final int[] jugadores = {3,6,2,1}; //TODO: JSON
+        final int[] idpartida = {1,2,3,4}; //TODO: JSON
+        final String [] city = {"Zaragoza", "Sao Paulo", "London", "Washington"}; //TODO: JSON que será otro for
         listView = (ListView) findViewById(R.id.list);
-        String[] values = new String[] {
-                getString(R.string.create_game),
-                "Partida 1 - 3J - MAX: 5J",
-                "Partida 2 - 6J - MAX: 8J",
-                "Partida 3 - 2J - MAX: 4J",
-                "Partida 4 - 1J - MAX: 2J"
-        };
-        /*String select =  "SELECT * FROM partidas WHERE accesible IS TRUE";
-        SQLiteDatabase db = con.getWritableDatabase();
-        List<String> partidas = (String) db.execSQL(select);
-        int total = 5; //length de lo que devuelve el select
         List<String> values = new ArrayList<String>();
+        values.add(getString(R.string.create_game));
+        int c=0;
+        for (int i=0; i<maxjugadores.length; i++){
+            values.add(city[i]+" - "+getString(R.string.users_max)+": "+maxjugadores[i]+" - "+getString(R.string.users)+": "+jugadores[i]);
+            c++;
+        }
+        if (c==0){
+            values.add("no hay partidas disponibles");
+        }
+        /*List<String> values = new ArrayList<String>();
         values.add(getString(R.string.create_game)); //crear partida
         for (int i=0; i<total;i++){ //las partidas disponibles
             values.add(partidas.get(i);
@@ -54,8 +57,9 @@ public class ListGames extends Activity {
                     if(unirsepartida(position)){
                         Intent i = new Intent(ListGames.this, JoinGame.class); //unirse a una partida
                         i.putExtra("user", user);
-                        //listView.getOnItemSelectedListener().toString().substring(0,listView.getOnItemSelectedListener().toString().indexOf("-")-1);
-                        i.putExtra("partida", listView.getItemAtPosition(position).toString());
+                        i.putExtra("idpartida", idpartida[position-1]);
+                        i.putExtra("jugadores", maxjugadores[position-1]);
+                        i.putExtra("city", city[position-1]);
                         startActivity(i);
                     }else{
                         Toast.makeText(getApplicationContext(), getString(R.string.closed) , Toast.LENGTH_LONG).show();

@@ -2,6 +2,7 @@ package com.example.java.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,19 +15,27 @@ import java.util.List;
 
 public class JoinGame extends Activity {
 
-    String user;
+    String user, ciudad;
+    int jugadores, partida;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_game);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         user = getIntent().getStringExtra("user");
-        String partida = getIntent().getStringExtra("partida");
-        int jugadores = 5; //TODO:buscar en la BBDD los jugadores y mandarlo desde la anterior activity
+        ciudad = getIntent().getStringExtra("city");
+        partida = getIntent().getIntExtra("partida", -1);
+        jugadores = getIntent().getIntExtra("jugadores", 0);
         final Spinner spinner = findViewById(R.id.spinner_join);
-        List<String> list = new ArrayList<String>();
-        for (int i=1;i<=jugadores;i++){
-            list.add(color(i));
+        int [] disponibles = {1, 2, 3, 4, 5, 6, 7, 8}; //TODO: sacar las fichas disponibles de la BBDD
+        List<String> list = new ArrayList<String>(); /* */
+        for (int i=1; i<=jugadores; i++){
+            for (int j=0; j<disponibles.length; j++){
+                if (i==disponibles[j]){
+                    list.add(color(i));
+                }
+            }
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -40,6 +49,8 @@ public class JoinGame extends Activity {
                     Intent i = new Intent(JoinGame.this, Game.class);
                     i.putExtra("user", user);
                     i.putExtra("ficha", (fichaColor(color)));
+                    i.putExtra("jugadores", jugadores);
+                    i.putExtra("city", ciudad);
                     startActivity(i);
                 }else{
                     finish();

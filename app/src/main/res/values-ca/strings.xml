@@ -26,4 +26,6 @@
     <string name="error_empty_field">Ompli aquest camp</string>
     <string name="select_color">Seleccioneu el vostre color</string>
     <string name="join_game">Unir-se al joc</string>
+    <string name="users">Usuaris</string>
+    <string name="users_max">Usuaris màxims</string>
 </resources>

@@ -26,4 +26,6 @@
     <string name="error_empty_field">Compila questo campo</string>
     <string name="select_color">Seleziona il tuo colore</string>
     <string name="join_game">Unisciti al gioco</string>
+    <string name="users">Utenti</string>
+    <string name="users_max">Utenti massimi</string>
 </resources>

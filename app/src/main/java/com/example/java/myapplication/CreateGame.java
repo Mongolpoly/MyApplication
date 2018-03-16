@@ -1,7 +1,9 @@
 package com.example.java.myapplication;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
@@ -19,30 +22,35 @@ import java.util.List;
 
 public class CreateGame extends Activity {
 
+    private List<String> list;
+    private ArrayAdapter<String> adapter;
     private String user;
     private Spinner spinner;
     private EditText et_num;
+    private TextView ciudad;
     private Button menos, mas, img_mas, img_menos;
     private ImageSwitcher imageSwitcher;
     private int n_img;
-    private int[] galeria = { R.drawable.ic_launcher_background, R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_background };
-
+    private int[] galeria = { R.drawable.city_1, R.drawable.city_2, R.drawable.city_3, R.drawable.city_4 };
+    private int[] ciudades = { R.string.ZAR, R.string.SAO, R.string.LON, R.string.WAS};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_game);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         int jugadores = 4;
         user = getIntent().getStringExtra("user");
         spinner = findViewById(R.id.spinner);
         et_num = (EditText) findViewById(R.id.et_njugadores);
+        ciudad = (TextView) findViewById(R.id.tv_ciudad);
         mas = (Button) findViewById(R.id.btn_plus);
         menos = (Button) findViewById(R.id.btn_minus);
-        List<String> list = new ArrayList<String>();
+        list = new ArrayList<String>();
         for (int i=1;i<=jugadores;i++){
             list.add(color(i));
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         et_num.setKeyListener(null);
@@ -51,26 +59,32 @@ public class CreateGame extends Activity {
             @Override
             public void onClick(View view) {
                 int n = Integer.parseInt(et_num.getText().toString())-1;
+                list.remove(n);
                 et_num.setText(""+n);
                 if (n==2){
                     menos.setEnabled(false);
                 }
-                mas.setEnabled(true);
+                if (!mas.isEnabled()){
+                    mas.setEnabled(true);
+                }
             }
         });
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int n = Integer.parseInt(et_num.getText().toString())+1;
+                list.add(color(n));
                 et_num.setText(""+n);
                 if (n==8){
                     mas.setEnabled(false);
                 }
-                menos.setEnabled(true);
+                if (!menos.isEnabled()){
+                    menos.setEnabled(true);
+                }
             }
         });
-        Button btn = (Button) findViewById(R.id.btn_join_game);
-        btn.setOnClickListener(new View.OnClickListener() {
+        Button join = (Button) findViewById(R.id.btn_join_game);
+        join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(et_num.getText().toString().equals("")){
@@ -81,6 +95,7 @@ public class CreateGame extends Activity {
                     String color = spinner.getSelectedItem().toString();
                     if (crearPartida(jugadores, fichaColor(color))){ //si crea la partida bien
                         Intent i = new Intent(CreateGame.this, Game.class);
+                        i.putExtra("city", getString(ciudades[n_img]));
                         i.putExtra("user", user);
                         i.putExtra("ficha", (fichaColor(color)));
                         i.putExtra("jugadores", Integer.parseInt(et_num.getText().toString()));
@@ -94,7 +109,7 @@ public class CreateGame extends Activity {
         });
         img_mas = (Button) findViewById(R.id.btn_next);
         img_menos = (Button) findViewById(R.id.btn_prev);
-        n_img = 1;
+        n_img = 0;
         imageSwitcher = (ImageSwitcher) findViewById(R.id.tableros);
         imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -102,8 +117,10 @@ public class CreateGame extends Activity {
                 ImageView switcherImageView = new ImageView(getApplicationContext());
                 switcherImageView.setLayoutParams(new ImageSwitcher.LayoutParams(
                         FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.FILL_PARENT));
+
+                switcherImageView.setImageResource(galeria[0]);
+                ciudad.setText(getString(ciudades[0]));
                 switcherImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                switcherImageView.setImageResource(R.drawable.ic_launcher_background);
                 //switcherImageView.setMaxHeight(100);
                 return switcherImageView;
             }
@@ -112,9 +129,13 @@ public class CreateGame extends Activity {
         img_mas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageSwitcher.setImageResource(R.drawable.ic_launcher_foreground);
                 n_img++;
-                if (n_img==4){
+                ciudad.setText(getString(ciudades[n_img]));
+                imageSwitcher.setImageResource(galeria[n_img]);
+                ImageView switcherImageView = new ImageView(getApplicationContext());
+                switcherImageView.setLayoutParams(new ImageSwitcher.LayoutParams(FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.FILL_PARENT));
+                switcherImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                if (n_img==3){
                     img_mas.setEnabled(false);
                 }
                 img_menos.setEnabled(true);
@@ -124,9 +145,13 @@ public class CreateGame extends Activity {
         img_menos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageSwitcher.setImageResource(R.drawable.ic_launcher_background);
                 n_img--;
-                if (n_img==1){
+                ciudad.setText(getString(ciudades[n_img]));
+                imageSwitcher.setImageResource(galeria[n_img]);
+                ImageView switcherImageView = new ImageView(getApplicationContext());
+                switcherImageView.setLayoutParams(new ImageSwitcher.LayoutParams(FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.FILL_PARENT));
+                switcherImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                if (n_img==0){
                     img_menos.setEnabled(false);
                 }
                 img_mas.setEnabled(true);

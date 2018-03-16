@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,50 +23,32 @@ public class MainActivity extends Activity {
     private static final String BD = "monopoly";
     private static final String USER = "player";
     private static final String PASSWORD = "player";
+    private EditText et_user, et_pass;
+    //private Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle(getString(R.string.log_in));
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //ver en PORTRAIT y dejar la parte de abajo para tirar dado, propiedades... USAR FRAMES
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         TextView create_account  = (TextView) findViewById(R.id.createaccount);
-        final EditText et_user  = (EditText) findViewById(R.id.et_user);
-        final EditText et_pass  = (EditText) findViewById(R.id.et_pass);
-        final Button login = (Button) findViewById(R.id.login_button);
+        et_user  = (EditText) findViewById(R.id.et_user);
+        et_pass  = (EditText) findViewById(R.id.et_pass);
+        et_pass.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) { //listener para entrar con enter
+                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                    attemptLogin();
+                    return true;
+                }
+                return false;
+            }
+        });
+        Button login = (Button) findViewById(R.id.login_button);
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                String user = et_user.getText().toString();
-                String pass = et_pass.getText().toString();
-                String realuser=  "test";//buscar en la bbdd si existe el user
-                String realpass =  "test";//buscar en la bbdd la pass de user
-                boolean vacio = false;
-                if (et_pass.getText().toString().equals("")){
-                    et_pass.setError(getString(R.string.error_empty_field));
-                    et_pass.requestFocus();
-                    vacio = true;
-                }
-                if (et_user.getText().toString().equals("")){
-                    et_user.setError(getString(R.string.error_empty_field));
-                    et_user.requestFocus();
-                    vacio = true;
-                }
-                if(!vacio){
-                    if (user.equals(realuser)) {
-                        if (pass.equals(realpass)) {
-                            Intent i = new Intent(MainActivity.this, ListGames.class);
-                            i.putExtra("user", user);
-                            startActivity(i);
-                        }else{
-                            et_pass.setError(getString(R.string.error_incorrect_password));
-                            et_pass.requestFocus();
-                        }
-                    }else{
-                        et_user.setError(getString(R.string.error_inexistent_user));
-                        et_user.requestFocus();
-                    }
-                }
-
+                attemptLogin();
             }
         });
         create_account.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +57,39 @@ public class MainActivity extends Activity {
                 startActivity(i);
             }
         });
+    }
+
+    public void attemptLogin(){
+        String user = et_user.getText().toString();
+        String pass = et_pass.getText().toString();
+        String realuser=  "test";//buscar en la bbdd si existe el user
+        String realpass =  "test";//buscar en la bbdd la pass de user
+        boolean vacio = false;
+        if (et_pass.getText().toString().equals("")){
+            et_pass.setError(getString(R.string.error_empty_field));
+            et_pass.requestFocus();
+            vacio = true;
+        }
+        if (et_user.getText().toString().equals("")){
+            et_user.setError(getString(R.string.error_empty_field));
+            et_user.requestFocus();
+            vacio = true;
+        }
+        if(!vacio){
+            if (user.equals(realuser)) {
+                if (pass.equals(realpass)) {
+                    Intent i = new Intent(MainActivity.this, ListGames.class);
+                    i.putExtra("user", et_user.getText().toString());
+                    startActivity(i);
+                }else{
+                    et_pass.setError(getString(R.string.error_incorrect_password));
+                    et_pass.requestFocus();
+                }
+            }else{
+                et_user.setError(getString(R.string.error_inexistent_user));
+                et_user.requestFocus();
+            }
+        }
     }
 
     @Override

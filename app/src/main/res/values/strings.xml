@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Monopoly</string>
     <string name="ZAR" translatable="false">Zaragoza</string>
-    <string name="SAO" translatable="false">São Paolo</string>
+    <string name="SAO" translatable="false">São Paulo</string>
     <string name="LON" translatable="false">London</string>
     <string name="WAS" translatable="false">Washington</string>
     <string name="login">Set name and password</string>
@@ -11,6 +11,7 @@
     <string name="sign_up">Sign up</string>
     <string name="log_in">Log in</string>
     <string name="user">User</string>
+    <string name="users">Users</string>
     <string name="pass">Password</string>
     <string name="error_invalid_password">Invalid password</string>
     <string name="error_invalid_user">Invalid user</string>
@@ -30,4 +31,5 @@
     <string name="white">White</string>
     <string name="black">Black</string>
     <string name="select_color">Select your color</string>
+    <string name="users_max">Max users</string>
 </resources>
