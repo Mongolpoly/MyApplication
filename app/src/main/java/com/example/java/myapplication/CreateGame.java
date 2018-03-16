@@ -3,30 +3,36 @@ package com.example.java.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreateGame extends Activity {
 
-    String user;
-    Spinner spinner;
-    EditText et_num;
-    Button menos, mas;
+    private String user;
+    private Spinner spinner;
+    private EditText et_num;
+    private Button menos, mas, img_mas, img_menos;
+    private ImageSwitcher imageSwitcher;
+    private int n_img;
+    private int[] galeria = { R.drawable.ic_launcher_background, R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_background };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_game);
-        int jugadores = 2;
+        int jugadores = 4;
         user = getIntent().getStringExtra("user");
         spinner = findViewById(R.id.spinner);
         et_num = (EditText) findViewById(R.id.et_njugadores);
@@ -44,21 +50,23 @@ public class CreateGame extends Activity {
         menos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int n = Integer.parseInt(et_num.getText().toString());
-                et_num.setText(""+n--);
+                int n = Integer.parseInt(et_num.getText().toString())-1;
+                et_num.setText(""+n);
                 if (n==2){
                     menos.setEnabled(false);
                 }
+                mas.setEnabled(true);
             }
         });
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int n = Integer.parseInt(et_num.getText().toString());
-                et_num.setText(""+n++);
+                int n = Integer.parseInt(et_num.getText().toString())+1;
+                et_num.setText(""+n);
                 if (n==8){
-                    menos.setEnabled(false);
+                    mas.setEnabled(false);
                 }
+                menos.setEnabled(true);
             }
         });
         Button btn = (Button) findViewById(R.id.btn_join_game);
@@ -82,6 +90,46 @@ public class CreateGame extends Activity {
                         Toast.makeText(CreateGame.this, "", Toast.LENGTH_SHORT).show(); //sin texto porque debería crearla siempre
                     }
                 }
+            }
+        });
+        img_mas = (Button) findViewById(R.id.btn_next);
+        img_menos = (Button) findViewById(R.id.btn_prev);
+        n_img = 1;
+        imageSwitcher = (ImageSwitcher) findViewById(R.id.tableros);
+        imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                ImageView switcherImageView = new ImageView(getApplicationContext());
+                switcherImageView.setLayoutParams(new ImageSwitcher.LayoutParams(
+                        FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.FILL_PARENT));
+                switcherImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                switcherImageView.setImageResource(R.drawable.ic_launcher_background);
+                //switcherImageView.setMaxHeight(100);
+                return switcherImageView;
+            }
+        });
+
+        img_mas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageSwitcher.setImageResource(R.drawable.ic_launcher_foreground);
+                n_img++;
+                if (n_img==4){
+                    img_mas.setEnabled(false);
+                }
+                img_menos.setEnabled(true);
+            }
+        });
+        img_menos.setEnabled(false);
+        img_menos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageSwitcher.setImageResource(R.drawable.ic_launcher_background);
+                n_img--;
+                if (n_img==1){
+                    img_menos.setEnabled(false);
+                }
+                img_mas.setEnabled(true);
             }
         });
     }

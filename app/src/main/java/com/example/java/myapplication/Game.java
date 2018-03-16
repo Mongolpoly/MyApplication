@@ -46,6 +46,7 @@ public class Game extends Activity {
 
     @Override
     public void onBackPressed() {
+        //Opción de salir del juego
     }
 
     public static int TiraDado(){
