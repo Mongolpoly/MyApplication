@@ -6,40 +6,50 @@ import android.widget.Toast;
 
 import java.util.Random;
 
-public class Game extends Activity {
+public class Game extends Activity{
 
-    static int jugadores, idpartida;
+    private static String player;
+    private static int jugadores, idpartida, conversor;
+    private static int[] dineros, players, posiciones;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         //Recoger el intent
-        String player = getIntent().getStringExtra("user");
+        player = getIntent().getStringExtra("user");
         int ficha = getIntent().getIntExtra("ficha", 1);
         String city = getIntent().getStringExtra("city");
         jugadores = getIntent().getIntExtra("jugadores", 2);
         idpartida = getIntent().getIntExtra("idpartida", -1);
         if (idpartida==-1){
-            //TODO crear insert de partida
+            //TODO crear insert de partida con city
             idpartida = 0; //TODO sacar idpartida
         }
+        //Sacar el factor de conversion
+        conversor = Conversor(city);
+        //Introducimos el jugador en la partida
         InsertarJugador(player, ficha, idpartida);
-        int jugadores_actuales = 0; //TODO sacar jugadores from partida
-        while(jugadores_actuales<jugadores){
-            try {
-                Thread.sleep(30000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            jugadores_actuales  = 0;//TODO sacar jugadores from partida
-        }
-        Partida(player);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        //TODO THREAD ESTADO
+        Thread th = new Thread();
+        th.run();
+        Toast.makeText(this, "IMBÉCIL", Toast.LENGTH_LONG).show();
+        int jugadores_actuales = 0; //TODO sacar jugadores from partida
+        //Espera hasta que los jugadores llenen la sala
+        while(jugadores_actuales<jugadores){
+            try {
+                Toast.makeText(this, getString(R.string.waiting), Toast.LENGTH_LONG).show();
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            jugadores_actuales  = 0;//TODO sacar jugadores from partida
+        }
     }
 
     @Override
@@ -68,6 +78,20 @@ public class Game extends Activity {
         //TODO: CERRAR + ONSLEEP
     }
 
+    private int Conversor(String city) {
+        int c = 0;
+        if (city.equals(getString(R.string.SAO))){
+            c = 4;
+        }else if (city.equals(getString(R.string.WAS).toString())) {
+            c = 3;
+        }else if (city.equals(getString(R.string.ZAR).toString())) {
+            c = 2;
+        }else {
+            c = 1;
+        }
+        return c;
+    }
+
     public static int TiraDado(){
         int max = 6;
         int roll = (int) (Math.random() * max) + 1;
@@ -76,6 +100,7 @@ public class Game extends Activity {
 
     public static void IrCarcel(String player){
         int position = 11; //carcel
+        //TODO llamar al json de carcel
         CambiaTurno();
     }
 
@@ -84,6 +109,29 @@ public class Game extends Activity {
     }
 
     public static void Partida(String user){
+        //Carga();
+        //TODO llamar a usuarios
+        dineros = new int[jugadores];
+        posiciones = new int[jugadores];
+        players = new int[jugadores];
+        for (int i = 0; i < jugadores; i++) {
+            dineros[i] = 750;
+            players[i] = 0;
+            posiciones[i] = 1;
+        }
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+        //TODO
         //TODO quitar accesible de partida
         OrdenTurno();
         Turno(user);

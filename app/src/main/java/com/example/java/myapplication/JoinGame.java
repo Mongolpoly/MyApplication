@@ -15,7 +15,7 @@ import java.util.List;
 
 public class JoinGame extends Activity {
 
-    String user;
+    String user, city;
     int jugadores, idpartida;
 
     @Override
@@ -24,6 +24,7 @@ public class JoinGame extends Activity {
         setContentView(R.layout.activity_join_game);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         user = getIntent().getStringExtra("user");
+        city = getIntent().getStringExtra("city");
         idpartida = getIntent().getIntExtra("idpartida", -1);
         jugadores = getIntent().getIntExtra("jugadores", 0);
         final Spinner spinner = findViewById(R.id.spinner_join);
@@ -50,6 +51,7 @@ public class JoinGame extends Activity {
                     i.putExtra("ficha", (fichaColor(color)));
                     i.putExtra("jugadores", jugadores);
                     i.putExtra("idpartida", idpartida);
+                    i.putExtra("city", city);
                     startActivity(i);
                 }else{
                     finish();

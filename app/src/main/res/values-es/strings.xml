@@ -28,4 +28,5 @@
     <string name="join_game">Unirse al juego</string>
     <string name="users">Usuarios</string>
     <string name="users_max">Usuarios máximos</string>
+    <string name="waiting">Esperando jugadores</string>
 </resources>

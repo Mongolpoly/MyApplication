@@ -1,18 +1,18 @@
 <resources>
     <string name="app_name">Monopoly</string>
-    <string name="login">Setze benutzer und passwort</string>
+    <string name="login">Stellen Sie Name und Passwort ein</string>
     <string name="create">Benutzerkonto anlegen</string>
     <string name="sign_up">Registrieren</string>
     <string name="log_in">Zugriff</string>
     <string name="user">Benutzer</string>
     <string name="pass">Passwort</string>
-    <string name="error_distinct_password">Verschiedene passwörter</string>
-    <string name="error_invalid_user">Ungültiges passwort</string>
-    <string name="error_invalid_password">Ungültiger benutzer</string>
+    <string name="error_distinct_password">Verschiedene Passwörter</string>
+    <string name="error_invalid_user">Ungültiges Passwort</string>
+    <string name="error_invalid_password">Ungültiger Benutzer</string>
     <string name="create_game">Spiel erstellen</string>
     <string name="games">Spiele</string>
     <string name="closed">Geschlossen</string>
-    <string name="max_users">"Setze spieler (2-8) "</string>
+    <string name="max_users">"Setze Spieler (2-8) "</string>
     <string name="black">Schwarz</string>
     <string name="white">Weiß</string>
     <string name="green">Grün</string>
@@ -21,11 +21,12 @@
     <string name="yellow">Gelb</string>
     <string name="blue">Blau</string>
     <string name="red">Rot</string>
-    <string name="error_incorrect_password">Falsches passwort</string>
-    <string name="error_inexistent_user">"Der benutzer existiert nicht "</string>
-    <string name="error_empty_field">Füllen sie dieses feld aus</string>
-    <string name="select_color">Wählen sie ihre farbe</string>
-    <string name="join_game">Trete dem spiel bei</string>
+    <string name="error_incorrect_password">Falsches Passwort</string>
+    <string name="error_inexistent_user">Benutzername existiert nicht</string>
+    <string name="error_empty_field">Füllen Sie dieses Feld aus</string>
+    <string name="select_color">Wählen Sie Ihre Farbe</string>
+    <string name="join_game">Spiel beitreten</string>
     <string name="users">Benutzer</string>
     <string name="users_max">Max Benutzer</string>
+    <string name="waiting">Warten auf Spieler</string>
 </resources>

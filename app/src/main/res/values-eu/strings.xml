@@ -28,4 +28,5 @@
     <string name="join_game">Atera jokoa</string>
     <string name="users">Erabiltzaileak</string>
     <string name="users_max">Gehienezko erabiltzaileak</string>
+    <string name="waiting">Jokalariak zain</string>
 </resources>

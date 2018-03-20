@@ -62,8 +62,8 @@ public class MainActivity extends Activity {
     public void attemptLogin(){
         String user = et_user.getText().toString();
         String pass = et_pass.getText().toString();
-        String realuser=  "";//TODO buscar en la bbdd si existe el user
-        String realpass =  "";//TODO buscar en la bbdd la pass de user
+        String realuser=  "1234";//TODO buscar en la bbdd si existe el user
+        String realpass =  "1234";//TODO buscar en la bbdd la pass de user
         boolean vacio = false;
         if (et_pass.getText().toString().equals("")){
             et_pass.setError(getString(R.string.error_empty_field));

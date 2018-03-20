@@ -16,7 +16,7 @@
     <string name="error_invalid_password">Invalid password</string>
     <string name="error_invalid_user">Invalid user</string>
     <string name="error_distinct_password">Different passwords</string>
-    <string name="error_incorrect_password">Incorrect password</string>
+    <string name="error_incorrect_password">Wrong password</string>
     <string name="error_inexistent_user">Username doesn\'t exist</string>
     <string name="error_empty_field">Fill this field</string>
     <string name="games">Games</string>
@@ -32,4 +32,5 @@
     <string name="black">Black</string>
     <string name="select_color">Select your color</string>
     <string name="users_max">Max users</string>
+    <string name="waiting">Waiting for players</string>
 </resources>
