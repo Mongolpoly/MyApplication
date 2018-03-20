@@ -15,8 +15,8 @@ import java.util.List;
 
 public class JoinGame extends Activity {
 
-    String user, ciudad;
-    int jugadores, partida;
+    String user;
+    int jugadores, idpartida;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +24,7 @@ public class JoinGame extends Activity {
         setContentView(R.layout.activity_join_game);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         user = getIntent().getStringExtra("user");
-        ciudad = getIntent().getStringExtra("city");
-        partida = getIntent().getIntExtra("partida", -1);
+        idpartida = getIntent().getIntExtra("idpartida", -1);
         jugadores = getIntent().getIntExtra("jugadores", 0);
         final Spinner spinner = findViewById(R.id.spinner_join);
         int [] disponibles = {1, 2, 3, 4, 5, 6, 7, 8}; //TODO: sacar las fichas disponibles de la BBDD
@@ -50,7 +49,7 @@ public class JoinGame extends Activity {
                     i.putExtra("user", user);
                     i.putExtra("ficha", (fichaColor(color)));
                     i.putExtra("jugadores", jugadores);
-                    i.putExtra("city", ciudad);
+                    i.putExtra("idpartida", idpartida);
                     startActivity(i);
                 }else{
                     finish();
@@ -95,8 +94,9 @@ public class JoinGame extends Activity {
         }
     }
 
-    private boolean unirsePartida(int color) { //TODO: CREAR PARTIDA
-        if (color>0 && color<9) {
+    private boolean unirsePartida(int color) {
+        //TODO: MIRAR SI LA PARTIDA ES ACCESIBLE Y EL NJUGADORES + 1 < JUGADORES TOTALES
+        if (true) {
             return true;
         }else{
             return false;

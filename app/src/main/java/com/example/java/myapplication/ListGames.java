@@ -23,10 +23,10 @@ public class ListGames extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_games);
         user = getIntent().getStringExtra("user");
-        final int[] maxjugadores = {5,8,4,2}; //TODO: JSON
-        final int[] jugadores = {3,6,2,1}; //TODO: JSON
-        final int[] idpartida = {1,2,3,4}; //TODO: JSON
-        final String [] city = {"Zaragoza", "Sao Paulo", "London", "Washington"}; //TODO: JSON que será otro for
+        final int[] maxjugadores = {5,8,4,2}; //TODO: lista jugadores de partidas
+        final int[] jugadores = {3,6,2,1}; //TODO: lista jugadores actuales de partidas (usando partidas_jugadores)
+        final int[] idpartida = {1,2,3,4}; //TODO: lista idpartida de partidas
+        final String [] city = {"Zaragoza", "São Paulo", "London", "Washington"}; //TODO: lista ciudad de partidas
         listView = (ListView) findViewById(R.id.list);
         List<String> values = new ArrayList<String>();
         values.add(getString(R.string.create_game));

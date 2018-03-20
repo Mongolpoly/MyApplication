@@ -93,17 +93,12 @@ public class CreateGame extends Activity {
                 }else{
                     int jugadores = Integer.parseInt(et_num.getText().toString());
                     String color = spinner.getSelectedItem().toString();
-                    if (crearPartida(jugadores, fichaColor(color))){ //si crea la partida bien
-                        Intent i = new Intent(CreateGame.this, Game.class);
-                        i.putExtra("city", getString(ciudades[n_img]));
-                        i.putExtra("user", user);
-                        i.putExtra("ficha", (fichaColor(color)));
-                        i.putExtra("jugadores", Integer.parseInt(et_num.getText().toString()));
-                        startActivity(i);
-                    }else{
-                        finish();
-                        Toast.makeText(CreateGame.this, "", Toast.LENGTH_SHORT).show(); //sin texto porque debería crearla siempre
-                    }
+                    Intent i = new Intent(CreateGame.this, Game.class);
+                    i.putExtra("city", getString(ciudades[n_img]));
+                    i.putExtra("user", user);
+                    i.putExtra("ficha", (fichaColor(color)));
+                    i.putExtra("jugadores", Integer.parseInt(et_num.getText().toString()));
+                    startActivity(i);
                 }
             }
         });
@@ -157,14 +152,6 @@ public class CreateGame extends Activity {
                 img_mas.setEnabled(true);
             }
         });
-    }
-
-    private boolean crearPartida(int jugadores, int color) { //TODO: CREAR PARTIDA
-        if (jugadores>1 && jugadores <9) {
-            return true;
-        }else{
-            return false;
-        }
     }
 
     public String color(int c){
