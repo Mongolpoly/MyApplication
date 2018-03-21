@@ -2,15 +2,21 @@ package com.example.java.myapplication;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
 
 public class Game extends Activity{
 
-    private static String player;
-    private static int jugadores, idpartida, conversor;
+    private static String player, moneda;
+    private static int jugadores, idpartida, conversor, dinero_base=750;
     private static int[] dineros, players, posiciones;
+    private Button btn_dado, btn_propiedades;
+    private TextView tv_dinero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,28 +34,19 @@ public class Game extends Activity{
         }
         //Sacar el factor de conversion
         conversor = Conversor(city);
+        dinero_base = dinero_base*conversor;
         //Introducimos el jugador en la partida
         InsertarJugador(player, ficha, idpartida);
+        btn_dado = (Button) findViewById(R.id.btn_dados);
+        btn_propiedades = (Button) findViewById(R.id.btn_propiedades);
+        tv_dinero = (TextView) findViewById(R.id.tv_dinero);
+        tv_dinero.setTextColor(getResources().getColor(R.color.black));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        //TODO THREAD ESTADO
-        Thread th = new Thread();
-        th.run();
-        Toast.makeText(this, "IMBÉCIL", Toast.LENGTH_LONG).show();
-        int jugadores_actuales = 0; //TODO sacar jugadores from partida
-        //Espera hasta que los jugadores llenen la sala
-        while(jugadores_actuales<jugadores){
-            try {
-                Toast.makeText(this, getString(R.string.waiting), Toast.LENGTH_LONG).show();
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            jugadores_actuales  = 0;//TODO sacar jugadores from partida
-        }
+        ThreadWaitingUsers();
     }
 
     @Override
@@ -82,12 +79,16 @@ public class Game extends Activity{
         int c = 0;
         if (city.equals(getString(R.string.SAO))){
             c = 4;
+            moneda="R$";
         }else if (city.equals(getString(R.string.WAS).toString())) {
             c = 3;
+            moneda="$";
         }else if (city.equals(getString(R.string.ZAR).toString())) {
             c = 2;
+            moneda="€";
         }else {
             c = 1;
+            moneda="£";
         }
         return c;
     }
@@ -115,7 +116,7 @@ public class Game extends Activity{
         posiciones = new int[jugadores];
         players = new int[jugadores];
         for (int i = 0; i < jugadores; i++) {
-            dineros[i] = 750;
+            dineros[i] = dinero_base;
             players[i] = 0;
             posiciones[i] = 1;
         }
@@ -307,5 +308,46 @@ public class Game extends Activity{
     public static int JugadoresJugando(int idpartida){
         int n = 0; //TODO count jugadores en la partida con dinero > 0
         return n;
+    }
+
+    public void LongToast(final String string){
+        runOnUiThread(new Runnable() {
+            public void run(){
+                Toast.makeText(Game.this, string, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void ThreadWaitingUsers() {
+        final Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            //private long startTime = System.currentTimeMillis();
+            public void run() {
+                int jugadores_actuales = 0; //TODO sacar jugadores from partida
+                //Espera hasta que los jugadores llenen la sala
+                while (jugadores_actuales < jugadores) {
+                    try {
+                        //LongToast(getString(R.string.waiting));
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    jugadores_actuales++; //TODO sacar jugadores from partida
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        btn_dado.setVisibility(View.VISIBLE);
+                        btn_propiedades.setVisibility(View.VISIBLE);
+                        btn_dado.setEnabled(true);
+                        btn_propiedades.setEnabled(true);
+                        tv_dinero.setText(dinero_base+moneda);
+                    }
+                });
+
+            }
+        };
+        Thread espera = new Thread(runnable);
+        espera.start();
     }
 }
