@@ -12,9 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends Activity {
 
@@ -62,8 +65,7 @@ public class MainActivity extends Activity {
     public void attemptLogin(){
         String user = et_user.getText().toString();
         String pass = et_pass.getText().toString();
-        String realuser=  "1234";//TODO buscar en la bbdd si existe el user
-        String realpass =  "1234";//TODO buscar en la bbdd la pass de user
+        JSONParser jsp = new JSONParser();
         boolean vacio = false;
         if (et_pass.getText().toString().equals("")){
             et_pass.setError(getString(R.string.error_empty_field));
@@ -76,18 +78,27 @@ public class MainActivity extends Activity {
             vacio = true;
         }
         if(!vacio){
-            if (user.equals(realuser)) {
-                if (pass.equals(realpass)) {
-                    Intent i = new Intent(MainActivity.this, ListGames.class);
-                    i.putExtra("user", et_user.getText().toString());
-                    startActivity(i);
-                }else{
-                    et_pass.setError(getString(R.string.error_incorrect_password));
-                    et_pass.requestFocus();
-                }
-            }else{
+            int estado = -1;
+            try {
+                estado = jsp.loginusuarios(user, pass);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Toast.makeText(this, "estado "+estado, Toast.LENGTH_SHORT).show();
+            if(estado==3){
                 et_user.setError(getString(R.string.error_inexistent_user));
                 et_user.requestFocus();
+            }else if (estado==2){
+                et_pass.setError(getString(R.string.error_incorrect_password));
+                et_pass.requestFocus();
+            }else if (estado==1){
+                Intent i = new Intent(MainActivity.this, ListGames.class);
+                i.putExtra("user", et_user.getText().toString());
+                startActivity(i);
             }
         }
     }

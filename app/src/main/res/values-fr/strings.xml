@@ -29,4 +29,6 @@
     <string name="users">Utilisateurs</string>
     <string name="users_max">Maximum utilisateurs</string>
     <string name="waiting">En attente de joueurs</string>
+    <string name="holdings">Voyez votre immobilier</string>
+    <string name="win">Vous gagnez</string>
 </resources>

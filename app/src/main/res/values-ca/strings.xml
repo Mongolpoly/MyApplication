@@ -29,4 +29,6 @@
     <string name="users">Usuaris</string>
     <string name="users_max">Usuaris màxims</string>
     <string name="waiting">Esperant jugadors</string>
+    <string name="holdings">Veure els teus propietats</string>
+    <string name="win">Has guanyat</string>
 </resources>

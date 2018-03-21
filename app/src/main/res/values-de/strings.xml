@@ -29,4 +29,6 @@
     <string name="users">Benutzer</string>
     <string name="users_max">Max Benutzer</string>
     <string name="waiting">Warten auf Spieler</string>
+    <string name="holdings">Sehen Sie Ihre Bestände</string>
+    <string name="win">Du gewinnst</string>
 </resources>

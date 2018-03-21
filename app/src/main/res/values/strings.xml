@@ -33,4 +33,8 @@
     <string name="select_color">Select your color</string>
     <string name="users_max">Max users</string>
     <string name="waiting">Waiting for players</string>
+    <string name="holdings">See your holdings</string>
+    <string name="win">You win</string>
+    <string name="lose">You lose</string>
+    <string name="well_played">Well played</string>
 </resources>

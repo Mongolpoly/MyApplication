@@ -29,4 +29,6 @@
     <string name="users">Erabiltzaileak</string>
     <string name="users_max">Gehienezko erabiltzaileak</string>
     <string name="waiting">Jokalariak zain</string>
+    <string name="holdings">Ikusi zure jabetzakoak</string>
+    <string name="win">Irabazi duzu</string>
 </resources>

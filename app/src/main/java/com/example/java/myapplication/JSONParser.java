@@ -1,12 +1,10 @@
 package com.example.java.myapplication;
 
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +13,6 @@ import java.util.concurrent.ExecutionException;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
-
 public class JSONParser {
 
     JSONObject json;
@@ -23,17 +20,16 @@ public class JSONParser {
     Boolean correcto;
     ArrayList<String> js = new ArrayList<>();
     String success;
+    String con = "http://mongolpoly.esy.es/";
 
 
     public boolean Registrousuarios( String nombre, String password) throws InterruptedException, ExecutionException, JSONException {
-
         correcto=true;
-
         List<NameValuePair> params = new LinkedList();
         params.add(new BasicNameValuePair("nombre",nombre));
         params.add(new BasicNameValuePair("password",password));
         ConexionHTTPGet c = new ConexionHTTPGet();
-        json = c.makeHttpRequest("http://mongolpoly.esy.es/db_registro_jugadores.php", params);
+        json = c.makeHttpRequest(con+"db_registro_jugadores.php", params);
         try {
             jsonArray = json.getJSONArray("respuesta");
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -60,7 +56,7 @@ public class JSONParser {
         params.add(new BasicNameValuePair("jugador",idjugador));
         params.add(new BasicNameValuePair("ficha",ficha));
         ConexionHTTPGet c = new ConexionHTTPGet();
-        json = c.makeHttpRequest("http://mongolpoly.esy.es/db_registro_partidas.php", params);
+        json = c.makeHttpRequest(con+"db_registro_partidas.php", params);
         try {
             jsonArray = json.getJSONArray("respuesta");
             JSONObject json = jsonArray.getJSONObject(0);
@@ -76,27 +72,33 @@ public class JSONParser {
         }
     }
 
-    public boolean loginusuarios( String nombre, String password) throws InterruptedException, ExecutionException, JSONException {
+    public int loginusuarios( String nombre, String password) throws InterruptedException, ExecutionException, JSONException {
         correcto=true;
+        String mensaje = "";
         List<NameValuePair> params = new LinkedList();
         params.add(new BasicNameValuePair("nombre",nombre));
         params.add(new BasicNameValuePair("password",password));
         ConexionHTTPGet c = new ConexionHTTPGet();
-        json = c.makeHttpRequest("http://mongolpoly.esy.es/db_comprobar_jugadores.php", params);
+        json = c.makeHttpRequest(con+"db_comprobar_jugadores.php", params);
         try {
             jsonArray = json.getJSONArray("respuesta");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject json = jsonArray.getJSONObject(i);
+
+                JSONObject json = jsonArray.getJSONObject(0);
                 success = json.getString("success");
-            }
+                mensaje = json.getString("message");
+
             if(success.equals("1")){
-                return TRUE;
+                return 1;
             }else{
-                return FALSE;
+                if(mensaje.equals("password")){
+                    return 2;
+                }else{
+                    return 3;
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            return FALSE;
+            return 0;
         }
     }
 
@@ -104,7 +106,7 @@ public class JSONParser {
         ArrayList<ArrayList> Arraysalas = new ArrayList<>();
         List<NameValuePair> params = new LinkedList();
         ConexionHTTPGet c = new ConexionHTTPGet();
-        json = c.makeHttpRequest("http://mongolpoly.esy.es/db_comprobar_partidas.php", params);
+        json = c.makeHttpRequest(con+"db_comprobar_partidas.php", params);
         try {
             jsonArray = json.getJSONArray("salas");
             for (int i = 0; i < jsonArray.length(); i++) {

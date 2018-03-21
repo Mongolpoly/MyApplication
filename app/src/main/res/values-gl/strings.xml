@@ -29,4 +29,6 @@
     <string name="users">Usuarios</string>
     <string name="users_max">Usuarios máximos</string>
     <string name="waiting">Agardando os xogadores</string>
+    <string name="holdings">Vexa as súas propiedades</string>
+    <string name="win">Gañaches</string>
 </resources>

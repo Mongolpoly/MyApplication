@@ -1,6 +1,7 @@
 package com.example.java.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -99,17 +100,17 @@ public class Game extends Activity{
         return roll;
     }
 
-    public static void IrCarcel(String player){
+    public void IrCarcel(String player){
         int position = 11; //carcel
         //TODO llamar al json de carcel
         CambiaTurno();
     }
 
-    public static void InsertarJugador(String player, int ficha, int idpartida){
+    public void InsertarJugador(String player, int ficha, int idpartida){
         //TODO insertar en partida_jugadores
     }
 
-    public static void Partida(String user){
+    public void Partida(String user){
         //Carga();
         //TODO llamar a usuarios
         dineros = new int[jugadores];
@@ -139,7 +140,7 @@ public class Game extends Activity{
 
     }
 
-    public static void OrdenTurno(){
+    public void OrdenTurno(){
         int[] idjugadores = new int[jugadores]; //TODO sacar el ID de la BBDD
         int[] orden = new int[jugadores];
         int[] turno = new int[jugadores];
@@ -160,7 +161,7 @@ public class Game extends Activity{
         }
     }
 
-    public static void CambiaTurno(){
+    public void CambiaTurno(){
         int turno = 0; //TODO select turno from partida;
         turno++;
         if (turno>jugadores){ //cuando sea el turno del último vuelve al primero
@@ -174,7 +175,7 @@ public class Game extends Activity{
         //TODO INSERT turno IN partida
     }
 
-    public static void Turno(String player){
+    public void Turno(String player){
         int posicion = 0; //TODO SELECT FROM partida_jugadores
         int d1 =  TiraDado();
         int d2 =  TiraDado();
@@ -215,7 +216,7 @@ public class Game extends Activity{
         CambiaTurno();
     }
 
-    public static void Pagar(String player, int posicion){
+    public void Pagar(String player, int posicion){
         int pagar = 0; //TODO sacar lo que hay que pagar
         int dinero_user = 0; //TODO sacar lo que tiene el jugador
         dinero_user -= pagar; //restamos lo que se paga
@@ -229,7 +230,7 @@ public class Game extends Activity{
         //TODO update jugardor
     }
 
-    public static void Evento(String player, int posicion){
+    public void Evento(String player, int posicion){
         //TODO lo que sea, sacar carta, etc
         switch (posicion){
             case 31: IrCarcel(player);
@@ -253,7 +254,7 @@ public class Game extends Activity{
         }
     }
 
-    public static void Carta(String player, int tipo){ //tipo 0: suerte; tipo 1: comunidad
+    public void Carta(String player, int tipo){ //tipo 0: suerte; tipo 1: comunidad
         int suerte = 12;
         int comunidad = 12;
         Random random = new Random();
@@ -277,14 +278,14 @@ public class Game extends Activity{
         //TODO UPDATE carta a no disponible
     }
 
-    public static void Comprar(String player, int posicion) {
+    public void Comprar(String player, int posicion) {
         int precio = 0; //TODO: valor de la casilla position
         int dinero = 0; //TODO: dinero del jugador player
         //TODO INSERT EN PROPIEDADES_JUGADORES WHERE JUGADOR = PLAYER AND PARTIDA = IDPARTIDA
     }
 
 
-    public static void Impuesto(String player, int posicion) {
+    public void Impuesto(String player, int posicion) {
         int precio = 0; //TODO: valor de la casilla position
         int dinero = 0; //TODO: dinero del jugador player
         dinero -= precio;
@@ -294,18 +295,21 @@ public class Game extends Activity{
         //TODO UPDATE PRECIO JUGADOR = PLAYER AND PARTIDA = IDPARTIDA
     }
 
-    public static int ContarDisponible(String tipo) {
+    public int ContarDisponible(String tipo) {
         int n = 0; //TODO sacar cartas disponibles de un tipo
         return n;
     }
 
-    public static void Pierde(String player){
+    public void Pierde(String player){
         //TODO update partida_jugadores turno = 0
-        //TODO graficos
+        //TODO graficos, quitar fichita y eso
         jugadores--;
+        //Intent i = new Intent(Game.this, FinPartida.class);
+        //i.putExtra("win", false);
+        //startActivity(i);
     }
 
-    public static int JugadoresJugando(int idpartida){
+    public int JugadoresJugando(int idpartida){
         int n = 0; //TODO count jugadores en la partida con dinero > 0
         return n;
     }
@@ -321,13 +325,11 @@ public class Game extends Activity{
     private void ThreadWaitingUsers() {
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
-            //private long startTime = System.currentTimeMillis();
             public void run() {
                 int jugadores_actuales = 0; //TODO sacar jugadores from partida
                 //Espera hasta que los jugadores llenen la sala
                 while (jugadores_actuales < jugadores) {
                     try {
-                        //LongToast(getString(R.string.waiting));
                         Thread.sleep(4000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
