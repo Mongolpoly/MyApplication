@@ -35,4 +35,5 @@
     <string name="well_played">Bien jugado</string>
     <string name="user_created">Usuario creado</string>
     <string name="user_alredy">El usuario ya existe</string>
+    <string name="turn">Es tu turno</string>
 </resources>

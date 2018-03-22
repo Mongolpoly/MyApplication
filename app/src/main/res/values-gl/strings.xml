@@ -31,4 +31,9 @@
     <string name="waiting">Agardando os xogadores</string>
     <string name="holdings">Vexa as súas propiedades</string>
     <string name="win">Gañaches</string>
+    <string name="well_played">Ben xogado</string>
+    <string name="lose">Perdeches</string>
+    <string name="user_created">Usuario creado</string>
+    <string name="user_alredy">O usuario xa existe</string>
+    <string name="turn">É o teu quenda</string>
 </resources>

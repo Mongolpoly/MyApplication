@@ -31,4 +31,9 @@
     <string name="waiting">Jokalariak zain</string>
     <string name="holdings">Ikusi zure jabetzakoak</string>
     <string name="win">Irabazi duzu</string>
+    <string name="well_played">Ondo jokatua</string>
+    <string name="lose">Galdu duzu</string>
+    <string name="user_created">Erabiltzaile sortua</string>
+    <string name="user_alredy">Erabiltzailea lehendik dago</string>
+    <string name="turn">Zure txanda da</string>
 </resources>

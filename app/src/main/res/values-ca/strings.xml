@@ -31,4 +31,9 @@
     <string name="waiting">Esperant jugadors</string>
     <string name="holdings">Veure els teus propietats</string>
     <string name="win">Has guanyat</string>
+    <string name="well_played">Ben jugat</string>
+    <string name="lose">Has perdut</string>
+    <string name="user_created">Usuari creat</string>
+    <string name="user_alredy">L\'usuari ja existeix</string>
+    <string name="turn">És el teu torn</string>
 </resources>

@@ -31,4 +31,9 @@
     <string name="waiting">En attente de joueurs</string>
     <string name="holdings">Voyez votre immobilier</string>
     <string name="win">Vous gagnez</string>
+    <string name="well_played">Bien joué</string>
+    <string name="lose">Tu as perdu</string>
+    <string name="user_created">Utilisateur créé</string>
+    <string name="user_alredy">L\'utilisateur existe déjà</string>
+    <string name="turn">C\'est ton tour</string>
 </resources>
