@@ -31,7 +31,7 @@ public class CreateGame extends Activity {
     private Button menos, mas, img_mas, img_menos;
     private ImageSwitcher imageSwitcher;
     private int n_img;
-    private int[] galeria = { R.drawable.city_1, R.drawable.city_2, R.drawable.city_3, R.drawable.city_4 };
+    private int[] galeria = { R.drawable.city_1, R.drawable.city_2, R.drawable.city_3, R.drawable.city_4};
     private int[] ciudades = { R.string.ZAR, R.string.SAO, R.string.LON, R.string.WAS};
 
     @Override

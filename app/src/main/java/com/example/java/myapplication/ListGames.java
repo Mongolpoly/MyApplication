@@ -20,7 +20,7 @@ public class ListGames extends Activity {
 
     ListView listView;
     String user;
-    ArrayList<ArrayList> partidas;// = new ArrayList<>();
+    ArrayList<ArrayList> partidas = new ArrayList<>();
     JSONParser jsp;
 
     @Override
@@ -29,11 +29,24 @@ public class ListGames extends Activity {
         setContentView(R.layout.activity_list_games);
         listView = findViewById(R.id.list);
         user = getIntent().getStringExtra("user");
-        ArrayList<String> values = new ArrayList<String>();
-        values.add(getString(R.string.create_game));
+
         jsp = new JSONParser();
         try {
+            ArrayList<String> values = new ArrayList<String>();
+            values.add("");
+            values.add(getString(R.string.create_game));
+            values.add("");
+            values.add("");
             partidas = jsp.listasalas();
+
+            if(partidas!=null) {
+                partidas.add(0, values);
+            }else{
+
+                partidas = new ArrayList<>();
+                partidas.add(values);
+            }
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -41,23 +54,9 @@ public class ListGames extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (partidas!=null){
-            //id, ciudad, max, jugadore
-            int size = partidas.size();
-            final int[] maxjugadores = new int[size];
-            int[] jugadores = new int[size];
-            int[] idpartida = new int[size];
-            String [] city = new String[size];
-            for (int i = 0; i < size; i++) {
-                idpartida[i] = Integer.parseInt(partidas.get(i).get(0).toString());
-                city[i] = partidas.get(i).get(1).toString();
-                maxjugadores[i] = Integer.parseInt(partidas.get(i).get(2).toString());
-                jugadores[i] = Integer.parseInt(partidas.get(i).get(3).toString());
-                values.add(city[i]+" - "+getString(R.string.users_max)+": "+maxjugadores[i]+" - "+getString(R.string.users)+": "+jugadores[i]);
-            }
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
-        listView.setAdapter(adapter);
+
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        listView.setAdapter(new CustomList(this,partidas));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

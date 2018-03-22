@@ -108,21 +108,28 @@ public class JSONParser {
         ConexionHTTPGet c = new ConexionHTTPGet();
         json = c.makeHttpRequest(con+"db_comprobar_partidas.php", params);
         try {
-            jsonArray = json.getJSONArray("salas");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                ArrayList<String> sala = new ArrayList<>();
-                JSONObject json = jsonArray.getJSONObject(i);
-                String id = json.getString("id");
-                sala.add(id);
-                String ciudad = json.getString("ciudad");
-                sala.add(ciudad);
-                String size = json.getString("tamanio");
-                sala.add(size);
-                String ocupadas = json.getString("ocupadas");
-                sala.add(ocupadas);
-                Arraysalas.add(sala);
+
+            if(json.length()>0) {
+                jsonArray = json.getJSONArray("salas");
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+
+                    ArrayList<String> sala = new ArrayList<>();
+                    JSONObject json = jsonArray.getJSONObject(i);
+                    String id = json.getString("id");
+                    sala.add(id);
+                    String ciudad = json.getString("ciudad");
+                    sala.add(ciudad);
+                    String size = json.getString("tamanio");
+                    sala.add(size);
+                    String ocupadas = json.getString("ocupadas");
+                    sala.add(ocupadas);
+                    Arraysalas.add(sala);
+                }
+
             }
             return Arraysalas;
+
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
