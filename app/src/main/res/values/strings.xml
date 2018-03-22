@@ -37,4 +37,6 @@
     <string name="win">You win</string>
     <string name="lose">You lose</string>
     <string name="well_played">Well played</string>
+    <string name="user_created">User created</string>
+    <string name="user_alredy">User alredy exists</string>
 </resources>

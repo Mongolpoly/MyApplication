@@ -27,7 +27,6 @@ public class MainActivity extends Activity {
     private static final String USER = "player";
     private static final String PASSWORD = "player";
     private EditText et_user, et_pass;
-    //private Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +64,6 @@ public class MainActivity extends Activity {
     public void attemptLogin(){
         String user = et_user.getText().toString();
         String pass = et_pass.getText().toString();
-        JSONParser jsp = new JSONParser();
         boolean vacio = false;
         if (et_pass.getText().toString().equals("")){
             et_pass.setError(getString(R.string.error_empty_field));
@@ -78,6 +76,7 @@ public class MainActivity extends Activity {
             vacio = true;
         }
         if(!vacio){
+            JSONParser jsp = new JSONParser();
             int estado = -1;
             try {
                 estado = jsp.loginusuarios(user, pass);
@@ -88,7 +87,6 @@ public class MainActivity extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Toast.makeText(this, "estado "+estado, Toast.LENGTH_SHORT).show();
             if(estado==3){
                 et_user.setError(getString(R.string.error_inexistent_user));
                 et_user.requestFocus();

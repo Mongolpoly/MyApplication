@@ -123,7 +123,175 @@ public class JSONParser {
                 Arraysalas.add(sala);
             }
             return Arraysalas;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
+    public ArrayList comprobarMochila(String idpartida, String idjugador) throws InterruptedException, ExecutionException, JSONException {
+        correcto=true;
+        List<NameValuePair> params = new LinkedList();
+        //isset(isset($_GET['partida']))
+        params.add(new BasicNameValuePair("partida",idpartida));
+        params.add(new BasicNameValuePair("jugador",idjugador));
+        ConexionHTTPGet c = new ConexionHTTPGet();
+        json = c.makeHttpRequest(con+"db_comprobar_mochila.php", params);
+
+        try {
+            jsonArray = json.getJSONArray("mochila");
+            ArrayList <ArrayList> mochila = new ArrayList<>();
+            for (int i=0; i<jsonArray.length(); i++) {
+                JSONObject json = jsonArray.getJSONObject(i);
+                ArrayList<String> inventario = new ArrayList<>();
+                String nom = json.getString("id");
+                inventario.add(nom);
+                String din = json.getString("dinero");
+                inventario.add(din);
+                String prop = json.getString("idpropiedad");
+                inventario.add(prop);
+                mochila.add(inventario);
+            }
+            return mochila;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ArrayList comprobarJugadoresTurno(String turno, String partida) throws InterruptedException, ExecutionException, JSONException {
+        correcto=true;
+        List<NameValuePair> params = new LinkedList();
+        //isset($_GET['turno']) && isset($_GET['idsala'])
+        params.add(new BasicNameValuePair("turno",turno));
+        params.add(new BasicNameValuePair("idsala",partida));
+        ConexionHTTPGet c = new ConexionHTTPGet();
+        json = c.makeHttpRequest(con+"db_comprobar_jugadores_turno.php", params);
+        try {
+            jsonArray = json.getJSONArray("turno");
+            ArrayList <String> Tjugador = new ArrayList<>();
+            JSONObject json = jsonArray.getJSONObject(0);
+            String nom = json.getString("jugador");
+            Tjugador.add(nom);
+            return Tjugador;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public ArrayList comprobarJugadoresSala(String idpartida) throws InterruptedException, ExecutionException, JSONException {
+        correcto=true;
+        List<NameValuePair> params = new LinkedList();
+        //isset(isset($_GET['partida']))
+        params.add(new BasicNameValuePair("partida",idpartida));
+        ConexionHTTPGet c = new ConexionHTTPGet();
+        json = c.makeHttpRequest(con+"db_comprobar_jugadores_partida.php", params);
+        try {
+            jsonArray = json.getJSONArray("jugadores");
+            ArrayList<String> jugadores= new ArrayList<>();
+            for (int i=0; i<jsonArray.length(); i++) {
+                JSONObject json = jsonArray.getJSONObject(i);
+                String jugador = json.getString("jugador");
+                jugadores.add(jugador);
+            }
+            return jugadores;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ArrayList ComprobarFichaPartida(String idpartida) throws InterruptedException, ExecutionException, JSONException {
+        correcto=true;
+        List<NameValuePair> params = new LinkedList();
+        //isset(isset($_GET['partida']))
+        params.add(new BasicNameValuePair("idsala",idpartida));
+        ConexionHTTPGet c = new ConexionHTTPGet();
+        json = c.makeHttpRequest(con+"db_comprobar_ficha_disponible.php", params);
+        try {
+            jsonArray = json.getJSONArray("fichas");
+            ArrayList<String> fichasdisponibles = new ArrayList<>();
+            for (int i=0; i<jsonArray.length(); i++) {
+                JSONObject json = jsonArray.getJSONObject(i);
+                ArrayList<String> jugadores= new ArrayList<>();
+                String ficha = json.getString("ficha");
+                fichasdisponibles.add(ficha);
+            }
+            return fichasdisponibles;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public boolean actualizarTurno(String idpartida, String numjugadores) throws InterruptedException, ExecutionException, JSONException {
+        correcto=true;
+        List<NameValuePair> params = new LinkedList();
+        //isset(isset($_GET['partida']))
+        params.add(new BasicNameValuePair("partida",idpartida));
+        params.add(new BasicNameValuePair("participantes",numjugadores));
+        ConexionHTTPGet c = new ConexionHTTPGet();
+        json = c.makeHttpRequest(con+"db_actualizar_turno.php", params);
+        try {
+            String conseguido="";
+            jsonArray = json.getJSONArray("respuesta");
+            for (int i=0; i<jsonArray.length(); i++) {
+                JSONObject json = jsonArray.getJSONObject(i);
+                conseguido = json.getString("success");
+            }
+            if(conseguido.equals("1")){
+                return TRUE;
+            }else{
+                return FALSE;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return FALSE;
+        }
+    }
+
+    public ArrayList comprobarDoblesJugador(String idpartida, String idjugador) throws InterruptedException, ExecutionException, JSONException {
+        correcto=true;
+        List<NameValuePair> params = new LinkedList();
+        //isset(isset($_GET['partida']))
+        params.add(new BasicNameValuePair("partida",idpartida));
+        params.add(new BasicNameValuePair("jugador",idjugador));
+        ConexionHTTPGet c = new ConexionHTTPGet();
+        json = c.makeHttpRequest(con+"db_comprobar_dobles_jugadores.php", params);
+        try {
+            jsonArray = json.getJSONArray("tiradas");
+            ArrayList<String> dobles = new ArrayList<>();
+            JSONObject json = jsonArray.getJSONObject(0);
+            String doble = json.getString("dobles");
+            dobles.add(doble);
+            return dobles;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ArrayList ComprobarDineroJugadoresSala(String idpartida) throws InterruptedException, ExecutionException, JSONException {
+        correcto=true;
+        List<NameValuePair> params = new LinkedList();
+        //isset(isset($_GET['partida']))
+        params.add(new BasicNameValuePair("partida",idpartida));
+        ConexionHTTPGet c = new ConexionHTTPGet();
+        json = c.makeHttpRequest(con+"db_comprobar_dinero_jugador.php", params);
+        try {
+            jsonArray = json.getJSONArray("partida");
+            ArrayList<ArrayList> partida = new ArrayList<>();
+            for (int i=0; i<jsonArray.length(); i++) {
+                JSONObject json = jsonArray.getJSONObject(i);
+                ArrayList<String> jugadores= new ArrayList<>();
+                String jugador = json.getString("jugador");
+                jugadores.add(jugador);
+                String nombre = json.getString("nombre");
+                jugadores.add(nombre);
+                String dinero = json.getString("dinero");
+                jugadores.add(dinero);
+                partida.add(jugadores);
+            }
+            return partida;
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

@@ -16,12 +16,14 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+
+import java.util.concurrent.ExecutionException;
 
 public class CreateUser extends Activity {
 
-    private UserLoginTask mAuthTask = null;
-
-    // UI references.
     private EditText mUserView;
     private EditText mPasswordView;
     private EditText mPasswordView2;
@@ -37,11 +39,11 @@ public class CreateUser extends Activity {
         mPasswordView2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) { //listener para entrar con enter
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
+            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                attemptLogin();
+                return true;
+            }
+            return false;
             }
         });
 
@@ -55,10 +57,6 @@ public class CreateUser extends Activity {
     }
 
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
-
         // Reset errors.
         mUserView.setError(null);
         mPasswordView.setError(null);
@@ -92,12 +90,27 @@ public class CreateUser extends Activity {
             cancel = true;
         }
 
-        if (cancel) { // There was an error; don't attempt login and focus the first form field with an error.
+        if (cancel) {
             focusView.requestFocus();
-        } else { // Show a progress spinner, and kick off a background task to perform the user login attempt.
-            //showProgress(true);
-            mAuthTask = new UserLoginTask(user, password);
-            mAuthTask.execute((Void) null);
+        } else {
+            //showProgress(true); // Show a progress spinner, and kick off a background task to perform the user login attempt.
+            JSONParser jsp = new JSONParser();
+            boolean createuser = false;
+            try {
+                createuser = jsp.Registrousuarios(user, password);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (createuser){
+                Toast.makeText(this, getString(R.string.user_created), Toast.LENGTH_SHORT).show();
+                finish();
+            }else{
+                Toast.makeText(this, getString(R.string.user_alredy), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -107,44 +120,5 @@ public class CreateUser extends Activity {
 
     private boolean isPasswordValid(String password) {
         return password.length() > 4 && password.length()<51; //menor que 51 porque es varchar(50) en la BBDD
-    }
-
-    //Represents an asynchronous login/registration task used to authenticate the user.
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mUser;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mUser = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            /*try { // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }*/
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_invalid_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-        }
     }
 }

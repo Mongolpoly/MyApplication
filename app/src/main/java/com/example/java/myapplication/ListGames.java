@@ -10,39 +10,52 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ListGames extends Activity {
 
     ListView listView;
     String user;
+    ArrayList<ArrayList> partidas;// = new ArrayList<>();
+    JSONParser jsp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_games);
+        listView = findViewById(R.id.list);
         user = getIntent().getStringExtra("user");
-        final int[] maxjugadores = {5,8,4,2}; //TODO: lista jugadores de partidas
-        final int[] jugadores = {3,6,2,1}; //TODO: lista jugadores actuales de partidas (usando partidas_jugadores)
-        final int[] idpartida = {1,2,3,4}; //TODO: lista idpartida de partidas
-        final String [] city = {"Zaragoza", "São Paulo", "London", "Washington"}; //TODO: lista ciudad de partidas
-        listView = (ListView) findViewById(R.id.list);
-        List<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<String>();
         values.add(getString(R.string.create_game));
-        int c=0;
-        for (int i=0; i<maxjugadores.length; i++){
-            values.add(city[i]+" - "+getString(R.string.users_max)+": "+maxjugadores[i]+" - "+getString(R.string.users)+": "+jugadores[i]);
-            c++;
+        jsp = new JSONParser();
+        try {
+            partidas = jsp.listasalas();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        if (c==0){
-            values.add("no hay partidas disponibles");
+        if (partidas!=null){
+            //id, ciudad, max, jugadore
+            int size = partidas.size();
+            final int[] maxjugadores = new int[size];
+            int[] jugadores = new int[size];
+            int[] idpartida = new int[size];
+            String [] city = new String[size];
+            for (int i = 0; i < size; i++) {
+                idpartida[i] = Integer.parseInt(partidas.get(i).get(0).toString());
+                city[i] = partidas.get(i).get(1).toString();
+                maxjugadores[i] = Integer.parseInt(partidas.get(i).get(2).toString());
+                jugadores[i] = Integer.parseInt(partidas.get(i).get(3).toString());
+                values.add(city[i]+" - "+getString(R.string.users_max)+": "+maxjugadores[i]+" - "+getString(R.string.users)+": "+jugadores[i]);
+            }
         }
-        /*List<String> values = new ArrayList<String>();
-        values.add(getString(R.string.create_game)); //crear partida
-        for (int i=0; i<total;i++){ //las partidas disponibles
-            values.add(partidas.get(i);
-        }*/
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -57,9 +70,9 @@ public class ListGames extends Activity {
                     if(unirsepartida(position)){
                         Intent i = new Intent(ListGames.this, JoinGame.class); //unirse a una partida
                         i.putExtra("user", user);
-                        i.putExtra("idpartida", idpartida[position-1]);
-                        i.putExtra("jugadores", maxjugadores[position-1]);
-                        i.putExtra("city", city[position-1]);
+                        i.putExtra("idpartida", Integer.parseInt(partidas.get(position-1).get(0).toString()));
+                        i.putExtra("jugadores", Integer.parseInt(partidas.get(position-1).get(2).toString()));
+                        i.putExtra("city", partidas.get(position-1).get(1).toString());
                         startActivity(i);
                     }else{
                         Toast.makeText(getApplicationContext(), getString(R.string.closed) , Toast.LENGTH_LONG).show();
@@ -96,9 +109,8 @@ public class ListGames extends Activity {
     }
 
     public boolean unirsepartida(int pos){
-        //accedes a la partida con un insert vacío
-        int maxjugadores = 5; //json con n_jugadores de la tabla partida
-        int jugadores = 2; //json con n_jugadores de la tabla partida
+        int maxjugadores = Integer.parseInt(partidas.get(pos-1).get(2).toString());
+        int jugadores = Integer.parseInt(partidas.get(pos-1).get(3).toString());
         if (maxjugadores>=jugadores+1){
             return true;
         } else {
@@ -107,6 +119,16 @@ public class ListGames extends Activity {
     }
 
     private void recargar() {
-        //TODO: Hacer la recarga del lisview
+        try {
+            partidas = jsp.listasalas();
+            listView.invalidateViews();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

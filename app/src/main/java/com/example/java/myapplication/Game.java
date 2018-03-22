@@ -78,13 +78,13 @@ public class Game extends Activity{
 
     private int Conversor(String city) {
         int c = 0;
-        if (city.equals(getString(R.string.SAO))){
+        if (city.toLowerCase().equals(getString(R.string.SAO).toLowerCase())){
             c = 4;
             moneda="R$";
-        }else if (city.equals(getString(R.string.WAS).toString())) {
+        }else if (city.toLowerCase().equals(getString(R.string.WAS).toString().toLowerCase())) {
             c = 3;
             moneda="$";
-        }else if (city.equals(getString(R.string.ZAR).toString())) {
+        }else if (city.toLowerCase().equals(getString(R.string.ZAR).toString().toLowerCase())) {
             c = 2;
             moneda="€";
         }else {
@@ -304,9 +304,9 @@ public class Game extends Activity{
         //TODO update partida_jugadores turno = 0
         //TODO graficos, quitar fichita y eso
         jugadores--;
-        //Intent i = new Intent(Game.this, FinPartida.class);
-        //i.putExtra("win", false);
-        //startActivity(i);
+        Intent i = new Intent(Game.this, FinPartida.class);
+        i.putExtra("win", false);
+        startActivity(i);
     }
 
     public int JugadoresJugando(int idpartida){
