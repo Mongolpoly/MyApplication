@@ -36,4 +36,5 @@
     <string name="user_created">Erabiltzaile sortua</string>
     <string name="user_alredy">Erabiltzailea lehendik dago</string>
     <string name="turn">Zure txanda da</string>
+    <string name="exit">Sakatu berriro berriro irteteko</string>
 </resources>

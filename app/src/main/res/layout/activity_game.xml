@@ -9,6 +9,22 @@
         android:layout_height="480dp"
         android:orientation="vertical"
         android:background="@drawable/tablero">
+
+        <RelativeLayout
+            android:layout_width="117dp"
+            android:layout_height="116dp"
+            android:layout_marginLeft="155dp"
+            android:layout_marginTop="175dp">
+
+            <ImageView
+                android:id="@+id/loadingView"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+
     </LinearLayout>
     <LinearLayout
         android:id="@+id/Layout2"

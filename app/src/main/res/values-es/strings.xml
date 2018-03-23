@@ -36,4 +36,5 @@
     <string name="user_created">Usuario creado</string>
     <string name="user_alredy">El usuario ya existe</string>
     <string name="turn">Es tu turno</string>
+    <string name="exit">Presione atrás de nuevo para salir</string>
 </resources>
