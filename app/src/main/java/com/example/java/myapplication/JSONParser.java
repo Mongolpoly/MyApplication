@@ -256,7 +256,7 @@ public class JSONParser {
         }
     }
 
-    public ArrayList comprobarDoblesJugador(String idpartida, String idjugador) throws InterruptedException, ExecutionException, JSONException {
+    public int comprobarDoblesJugador(String idpartida, String idjugador) throws InterruptedException, ExecutionException, JSONException {
         correcto=true;
         List<NameValuePair> params = new LinkedList();
         //isset(isset($_GET['partida']))
@@ -266,14 +266,13 @@ public class JSONParser {
         json = c.makeHttpRequest(con+"db_comprobar_dobles_jugadores.php", params);
         try {
             jsonArray = json.getJSONArray("tiradas");
-            ArrayList<String> dobles = new ArrayList<>();
             JSONObject json = jsonArray.getJSONObject(0);
             String doble = json.getString("dobles");
-            dobles.add(doble);
+            int dobles = Integer.parseInt(doble);
             return dobles;
         } catch (JSONException e) {
             e.printStackTrace();
-            return null;
+            return -1;
         }
     }
 
