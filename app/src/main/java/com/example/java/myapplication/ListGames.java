@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -75,9 +76,16 @@ public class ListGames extends Activity {
                     if (unirsepartida(position)) {
                         Intent i = new Intent(ListGames.this, JoinGame.class); //unirse a una partida
                         i.putExtra("user", user);
-                        i.putExtra("idpartida", Integer.parseInt(listView.getAdapter().getView(position, null, listView).getTag().toString()));
-                        i.putExtra("jugadores", Integer.parseInt(partidas.get(position - 1).get(2).toString()));
-                        i.putExtra("city", partidas.get(position - 1).get(1).toString());
+
+                        TextView sala = (TextView) view.findViewById(R.id.idsala);
+                        TextView ciudad = (TextView) view.findViewById(R.id.sala);
+                        TextView jugadores = (TextView) view.findViewById(R.id.jugadores);
+
+                        String maxjugadores = jugadores.getText().toString().substring(2,3);
+
+                        i.putExtra("idpartida", Integer.parseInt(sala.getText().toString()));
+                        i.putExtra("jugadores", Integer.parseInt(maxjugadores));
+                        i.putExtra("city", ciudad.getText().toString());
                         startActivity(i);
                     } else {
                         Toast.makeText(getApplicationContext(), getString(R.string.closed), Toast.LENGTH_LONG).show();
