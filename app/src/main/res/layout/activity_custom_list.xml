@@ -4,7 +4,8 @@
     android:layout_height="70dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:background="@color/listado">
+    android:id="@+id/rl"
+    >
 
 
     <TextView
