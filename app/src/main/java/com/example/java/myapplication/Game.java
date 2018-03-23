@@ -39,6 +39,12 @@ public class Game extends Activity{
         //Introducimos el jugador en la partida
         InsertarJugador(player, ficha, idpartida);
         btn_dado = (Button) findViewById(R.id.btn_dados);
+        btn_dado.setOnClickListener(new View.OnClickListener() { //listener del boton del dado
+            @Override
+            public void onClick(View view) {
+                Turno(player);
+            }
+        });
         btn_propiedades = (Button) findViewById(R.id.btn_propiedades);
         tv_dinero = (TextView) findViewById(R.id.tv_dinero);
         tv_dinero.setTextColor(getResources().getColor(R.color.black));
