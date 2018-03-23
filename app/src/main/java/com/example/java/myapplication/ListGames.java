@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -15,6 +16,9 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 public class ListGames extends Activity {
 
@@ -39,9 +43,9 @@ public class ListGames extends Activity {
             values.add("");
             partidas = jsp.listasalas();
 
-            if(partidas!=null) {
+            if (partidas != null) {
                 partidas.add(0, values);
-            }else{
+            } else {
 
                 partidas = new ArrayList<>();
                 partidas.add(values);
@@ -56,25 +60,35 @@ public class ListGames extends Activity {
         }
 
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
-        listView.setAdapter(new CustomList(this,partidas));
+        listView.setAdapter(new CustomList(this, partidas));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String itemValue = (String) listView.getItemAtPosition(position);
-                if (position==0){
+
+
+
+                if (position == 0) {
                     Intent i = new Intent(ListGames.this, CreateGame.class); //crear la partida
                     i.putExtra("user", user);
                     startActivity(i);
-                }else{
-                    if(unirsepartida(position)){
+                } else {
+                    if (unirsepartida(position)) {
                         Intent i = new Intent(ListGames.this, JoinGame.class); //unirse a una partida
                         i.putExtra("user", user);
-                        i.putExtra("idpartida", Integer.parseInt(partidas.get(position-1).get(0).toString()));
-                        i.putExtra("jugadores", Integer.parseInt(partidas.get(position-1).get(2).toString()));
-                        i.putExtra("city", partidas.get(position-1).get(1).toString());
+
+                        TextView sala = (TextView) view.findViewById(R.id.idsala);
+                        TextView ciudad = (TextView) view.findViewById(R.id.sala);
+                        TextView jugadores = (TextView) view.findViewById(R.id.jugadores);
+
+                        String maxjugadores = jugadores.getText().toString().substring(2,3);
+
+                        i.putExtra("idpartida", Integer.parseInt(sala.getText().toString()));
+                        i.putExtra("jugadores", Integer.parseInt(maxjugadores));
+                        i.putExtra("city", ciudad.getText().toString());
                         startActivity(i);
-                    }else{
-                        Toast.makeText(getApplicationContext(), getString(R.string.closed) , Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), getString(R.string.closed), Toast.LENGTH_LONG).show();
                         recargar();
                     }
                 }
@@ -107,14 +121,16 @@ public class ListGames extends Activity {
         super.onResume();
     }
 
-    public boolean unirsepartida(int pos){
+    public boolean unirsepartida(int pos) {
+
         int maxjugadores = Integer.parseInt(partidas.get(pos-1).get(2).toString());
         int jugadores = Integer.parseInt(partidas.get(pos-1).get(3).toString());
-        if (maxjugadores>=jugadores+1){
-            return true;
-        } else {
-            return false;
-        }
+         if (maxjugadores>=jugadores+1) {
+             return TRUE;
+         }else{
+             return FALSE;
+         }
+
     }
 
     private void recargar() {

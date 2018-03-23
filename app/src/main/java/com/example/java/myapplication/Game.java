@@ -9,29 +9,43 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 public class Game extends Activity{
 
-    private static String player, moneda;
-    private static int jugadores, idpartida, conversor, dinero_base=750;
+    private static String player, moneda, idpartida;
+    private int jugadores, conversor, dinero_base=750;
     private static int[] dineros, players, posiciones;
     private Button btn_dado, btn_propiedades;
     private TextView tv_dinero;
+    private JSONParser jsp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        //inicializar el json
+        jsp = new JSONParser();
         //Recoger el intent
         player = getIntent().getStringExtra("user");
         int ficha = getIntent().getIntExtra("ficha", 1);
         String city = getIntent().getStringExtra("city");
         jugadores = getIntent().getIntExtra("jugadores", 2);
-        idpartida = getIntent().getIntExtra("idpartida", -1);
-        if (idpartida==-1){
-            //TODO crear insert de partida con city
-            idpartida = 0; //TODO sacar idpartida
+        idpartida = String.valueOf(getIntent().getIntExtra("idpartida", -1));
+        if (idpartida.equals("-1")){
+            //isset($_GET['ciudad']) && isset($_GET['n_jugadores']) && isset($_GET['jugador']) && isset($_GET['ficha'])
+            try {
+                jsp.registroSala(city, String.valueOf(jugadores), player, String.valueOf(ficha));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         //Sacar el factor de conversion
         conversor = Conversor(city);
@@ -108,11 +122,11 @@ public class Game extends Activity{
 
     public void IrCarcel(String player){
         int position = 11; //carcel
-        //TODO llamar al json de carcel
+        //TODO llamar al json de carcel (contador_carcel == 3)...
         CambiaTurno();
     }
 
-    public void InsertarJugador(String player, int ficha, int idpartida){
+    public void InsertarJugador(String player, int ficha, String idpartida){
         //TODO insertar en partida_jugadores
     }
 
@@ -170,7 +184,7 @@ public class Game extends Activity{
     public void CambiaTurno(){
         int turno = 0; //TODO select turno from partida;
         turno++;
-        if (turno>jugadores){ //cuando sea el turno del último vuelve al primero
+        if (turno>JugadoresJugando(idpartida)){ //cuando sea el turno del último vuelve al primero
             turno = 1;
         }
         int dinero = 0; //TODO select dinero from partida_jugadores where turno=turno
@@ -178,48 +192,93 @@ public class Game extends Activity{
             turno++;
             dinero = 0; //TODO select dinero from partida_jugadores where turno=turno
         }
-        //TODO INSERT turno IN partida
+
+        boolean ok = false;
+        try {
+            if (jsp.actualizarTurno(idpartida, String.valueOf(jugadores))){
+                ok = true;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (ok){
+            //TODO UPDATE turno IN partida
+        }
+        ThreadWaitingChanges();
     }
 
-    public void Turno(String player){
-        int posicion = 0; //TODO SELECT FROM partida_jugadores
-        int d1 =  TiraDado();
-        int d2 =  TiraDado();
-        int dobles = 0; //TODO SELECT FROM partida_jugadores
-        if (d1 == d2){
-            dobles++;
-            if (dobles == 3){
-                IrCarcel(player);
-            }
-        }else{
-            int tirada = d1+d2;
-            int dinero = 0;//TODO select dinero from partida_jugadores
-            posicion += tirada;
-            if (posicion>40){ //si pasas por la casilla de salida
-                posicion-=40;
-                dinero += 200;
-            }
-            if (dobles!=0){ //si lleva dobles y no ha sacado dobles
-                dobles = 0;
-            }
-            //TODO UPDATE dobles, posicion, dinero
+    public void MueveFicha(String player, int posicion, int tirada){
+        int dinero = 0;//TODO select dinero from partida_jugadores
+        posicion += tirada;
+        if (posicion>40){ //si pasas por la casilla de salida
+            posicion-=40;
+            dinero += 200;
         }
-        String color = ""; //TODO sacar el color de la casilla
-        if (!color.equals("")){
-            boolean disponible = true; //TODO sacar si la casilla es una propiedad disponible
-            if (disponible){
-                int precio = 0; //TODO sacar precio
-                int dinero = 0; //TODO sacar dinero del jugador from partida_jugadores
-                if(dinero>precio){
-                    Comprar(player, posicion);
+    }
+
+    public void Turno(String player) {
+        if(JugadoresJugando(idpartida)!=1){
+            int posicion = 0; //TODO SELECT FROM partida_jugadores
+            int d1 = TiraDado();
+            int d2 = TiraDado();
+            int tirada = d1 + d2;
+            int dobles = 0; //TODO SELECT FROM partida_jugadores
+            try {
+                dobles = jsp.comprobarDoblesJugador(idpartida, player);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            int contador_carcel = 0; //TODO SELECT contador_carcel FROM partidas_jugadores
+            if (d1 == d2) {
+                dobles++;
+                if (contador_carcel > 0) {
+                    contador_carcel = 0;
+                    dobles = 0;
+                    MueveFicha(player, posicion, tirada);
                 }
-            }else{
-                Pagar(player, posicion);
+                if (dobles == 3) {
+                    IrCarcel(player);
+                }
+            } else {
+                if (dobles != 0) { //si lleva dobles y no ha sacado dobles
+                    dobles = 0;
+                }
+                if (contador_carcel > 0) {
+                    contador_carcel--;
+                } else {
+                    MueveFicha(player, posicion, tirada);
+                    //TODO UPDATE dobles, posicion, dinero, contador_carcel
+                }
             }
+            String color = ""; //TODO sacar el color de la casilla
+            if (!color.equals("")) {
+                boolean disponible = true; //TODO sacar si la casilla es una propiedad disponible
+                if (disponible) {
+                    int precio = 0; //TODO sacar precio
+                    int dinero = 0; //TODO sacar dinero del jugador from partida_jugadores
+                    if (dinero > precio) {
+                        Comprar(player, posicion);
+                    }
+                } else {
+                    Pagar(player, posicion);
+                }
+            } else {
+                Evento(player, posicion);
+            }
+            CambiaTurno();
         }else{
-            Evento(player, posicion);
+            Intent i = new Intent(Game.this, FinPartida.class);
+            i.putExtra("win", true);
+            startActivity(i);
         }
-        CambiaTurno();
     }
 
     public void Pagar(String player, int posicion){
@@ -307,7 +366,9 @@ public class Game extends Activity{
     }
 
     public void Pierde(String player){
+        int turno_perdedor = 0;//TODO select turno from partida_jugadores
         //TODO update partida_jugadores turno = 0
+        //TODO update partida_jugadores de los jugadores con turno > turno_perdedor con turno--
         //TODO graficos, quitar fichita y eso
         jugadores--;
         Intent i = new Intent(Game.this, FinPartida.class);
@@ -315,7 +376,7 @@ public class Game extends Activity{
         startActivity(i);
     }
 
-    public int JugadoresJugando(int idpartida){
+    public int JugadoresJugando(String idpartida){
         int n = 0; //TODO count jugadores en la partida con dinero > 0
         return n;
     }
@@ -328,11 +389,22 @@ public class Game extends Activity{
         });
     }
 
-    private void ThreadWaitingUsers() {
+    private void ThreadWaitingUsers() { //hilo esperar a que entren los jugadores
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             public void run() {
-                int jugadores_actuales = 0; //TODO sacar jugadores from partida
+                JSONParser jsp = new JSONParser();
+                int jugadores_actuales = 0;
+                try {
+                    jugadores_actuales = (jsp.comprobarJugadoresSala(idpartida.toString())).size();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                ; //TODO sacar jugadores from partida
                 //Espera hasta que los jugadores llenen la sala
                 while (jugadores_actuales < jugadores) {
                     try {
@@ -350,6 +422,35 @@ public class Game extends Activity{
                         btn_dado.setEnabled(true);
                         btn_propiedades.setEnabled(true);
                         tv_dinero.setText(dinero_base+moneda);
+                    }
+                });
+
+            }
+        };
+        Thread espera = new Thread(runnable);
+        espera.start();
+    }
+
+    private void ThreadWaitingChanges() { //hilo espera que cambie el turno para repintar el tablero
+        final Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            public void run() {
+                int turno = 0; //TODO sacar jugadores from partida
+                int turno_actual = turno;
+                //Espera hasta que los jugadores llenen la sala
+                while (turno == turno_actual) {
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    turno_actual = 0; //TODO sacar turno from partida
+                }
+                turno = turno_actual; //ponemos el turno con el actual
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //TODO actualizar los gráficos
                     }
                 });
 

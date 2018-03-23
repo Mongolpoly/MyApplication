@@ -4,8 +4,15 @@
     android:layout_height="70dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:background="@color/listado">
+    android:id="@+id/rl"
+    >
 
+
+    <TextView
+        android:id="@+id/numsala"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" />
 
     <TextView
         android:id="@+id/jugadores"
@@ -31,5 +38,6 @@
         android:id="@+id/idsala"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:visibility="invisible" />
 </RelativeLayout>
