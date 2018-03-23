@@ -8,6 +8,12 @@
 
 
     <TextView
+        android:id="@+id/numsala"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <TextView
         android:id="@+id/jugadores"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

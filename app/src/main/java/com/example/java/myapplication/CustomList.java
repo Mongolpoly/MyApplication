@@ -40,15 +40,22 @@ public class CustomList extends BaseAdapter {
         TextView idsala = (TextView) row.findViewById(R.id.idsala);
         TextView nombresala = (TextView) row.findViewById(R.id.sala);
         TextView jugadores = (TextView) row.findViewById(R.id.jugadores);
+        TextView numsala = (TextView) row.findViewById(R.id.numsala);
+
         row.setTag(listItem.get(position).get(0).toString());
 
             idsala.setText(listItem.get(position).get(0).toString());
             nombresala.setText(listItem.get(position).get(1).toString());
 
             if(position!=0) {
+                numsala.setText(String.valueOf(position));
                 jugadores.setText(listItem.get(position).get(3).toString() + "/" + listItem.get(position).get(2).toString());
+
             }else{
+
+                numsala.setText("");
                 jugadores.setText("");
+
             }
 
         return row;
