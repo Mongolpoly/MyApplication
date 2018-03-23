@@ -36,12 +36,15 @@ public class CustomList extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inflater.inflate(R.layout.activity_custom_list, viewGroup, false);
 
+
         TextView idsala = (TextView) row.findViewById(R.id.idsala);
         TextView nombresala = (TextView) row.findViewById(R.id.sala);
         TextView jugadores = (TextView) row.findViewById(R.id.jugadores);
+        row.setTag(listItem.get(position).get(0).toString());
 
             idsala.setText(listItem.get(position).get(0).toString());
             nombresala.setText(listItem.get(position).get(1).toString());
+
             if(position!=0) {
                 jugadores.setText(listItem.get(position).get(3).toString() + "/" + listItem.get(position).get(2).toString());
             }else{
