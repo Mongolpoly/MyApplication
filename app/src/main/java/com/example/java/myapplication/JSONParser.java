@@ -256,6 +256,7 @@ public class JSONParser {
         }
     }
 
+    //TODO COMPROBAR A NOMBRE DE JUGADOR
     public int comprobarDoblesJugador(String idpartida, String idjugador) throws InterruptedException, ExecutionException, JSONException {
         correcto=true;
         List<NameValuePair> params = new LinkedList();
@@ -276,6 +277,7 @@ public class JSONParser {
         }
     }
 
+    //TODO REVISAR
     public ArrayList ComprobarDineroJugadoresSala(String idpartida) throws InterruptedException, ExecutionException, JSONException {
         correcto=true;
         List<NameValuePair> params = new LinkedList();
@@ -301,6 +303,40 @@ public class JSONParser {
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void entrarSala(String idpartida,String jugador, String ficha) throws InterruptedException, ExecutionException, JSONException {
+        correcto=true;
+        String idjugador="";
+        List<NameValuePair> params = new LinkedList();
+        //isset(isset($_GET['jugador']))
+        params.add(new BasicNameValuePair("jugador",jugador));
+        ConexionHTTPGet c = new ConexionHTTPGet();
+        json = c.makeHttpRequest(con+"db_jugadores.php", params);
+        try {
+            jsonArray = json.getJSONArray("jugadores");
+            JSONObject json = jsonArray.getJSONObject(0);
+            idjugador = json.getString("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //$_GET['idsala']) && isset($_GET['iduser']) && isset($_GET['seleccion']) && isset($_GET['ficha'])
+        List<NameValuePair> params2 = new LinkedList();
+        //isset(isset($_GET['jugador']))
+        params2.add(new BasicNameValuePair("idsala",idpartida));
+        params2.add(new BasicNameValuePair("iduser",idjugador));
+        params2.add(new BasicNameValuePair("seleccion","entrar"));
+        params2.add(new BasicNameValuePair("ficha",ficha));
+        ConexionHTTPGet c2 = new ConexionHTTPGet();
+        json = c.makeHttpRequest(con+"db_entrar_salir_sala.php", params2);
+        try {
+            jsonArray= json.getJSONArray("respuesta");
+            ArrayList<ArrayList> partida = new ArrayList<>();
+            JSONObject json2 = jsonArray.getJSONObject(0);
+            String respuesta = json.getString("success");
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }

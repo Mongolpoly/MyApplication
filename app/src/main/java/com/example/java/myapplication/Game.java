@@ -1,6 +1,8 @@
 package com.example.java.myapplication;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,14 +13,18 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 public class Game extends Activity{
 
     private static String player, moneda, idpartida;
-    private int jugadores, conversor, dinero_base=750;
     private static int[] dineros, players, posiciones;
+
+    private int jugadores, conversor, dinero_base=750;
+    private boolean close = false;
     private Button btn_dado, btn_propiedades;
     private TextView tv_dinero;
     private JSONParser jsp;
@@ -46,17 +52,18 @@ public class Game extends Activity{
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }else{
+            InsertarJugador(player, ficha, idpartida); //Introducimos el jugador en la partida
         }
         //Sacar el factor de conversion
         conversor = Conversor(city);
         dinero_base = dinero_base*conversor;
-        //Introducimos el jugador en la partida
-        InsertarJugador(player, ficha, idpartida);
         btn_dado = (Button) findViewById(R.id.btn_dados);
         btn_dado.setOnClickListener(new View.OnClickListener() { //listener del boton del dado
             @Override
             public void onClick(View view) {
-                Turno(player);
+                btn_dado.setEnabled(false);//desactiva el dado para que no vuelva a tirar
+                Turno();
             }
         });
         btn_propiedades = (Button) findViewById(R.id.btn_propiedades);
@@ -90,14 +97,31 @@ public class Game extends Activity{
         super.onResume();
     }
 
-    @Override
     public void onBackPressed() {
         //Opción de salir del juego
-        //TODO: CERRAR + ONSLEEP
+        //moveTaskToBack(true); //EL CHAPUCERO
+        final AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
+        builder.setMessage("Are you sure want to do this?");
+        builder.setCancelable(true);
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
+
     private int Conversor(String city) {
-        int c = 0;
+        int c;
         if (city.toLowerCase().equals(getString(R.string.SAO).toLowerCase())){
             c = 4;
             moneda="R$";
@@ -127,7 +151,15 @@ public class Game extends Activity{
     }
 
     public void InsertarJugador(String player, int ficha, String idpartida){
-        //TODO insertar en partida_jugadores
+        try {
+            jsp.entrarSala(idpartida,player,String.valueOf(ficha));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void Partida(String user){
@@ -156,8 +188,7 @@ public class Game extends Activity{
         //TODO
         //TODO quitar accesible de partida
         OrdenTurno();
-        Turno(user);
-
+        Turno();
     }
 
     public void OrdenTurno(){
@@ -192,7 +223,6 @@ public class Game extends Activity{
             turno++;
             dinero = 0; //TODO select dinero from partida_jugadores where turno=turno
         }
-
         boolean ok = false;
         try {
             if (jsp.actualizarTurno(idpartida, String.valueOf(jugadores))){
@@ -207,8 +237,9 @@ public class Game extends Activity{
         }
         if (ok){
             //TODO UPDATE turno IN partida
+            ThreadWaitingChanges();
+            ThreadWaitingTurn();
         }
-        ThreadWaitingChanges();
     }
 
     public void MueveFicha(String player, int posicion, int tirada){
@@ -220,8 +251,10 @@ public class Game extends Activity{
         }
     }
 
-    public void Turno(String player) {
+    public void Turno() {
         if(JugadoresJugando(idpartida)!=1){
+            System.out.println("token 1");
+            btn_dado.setEnabled(true);
             int posicion = 0; //TODO SELECT FROM partida_jugadores
             int d1 = TiraDado();
             int d2 = TiraDado();
@@ -251,7 +284,7 @@ public class Game extends Activity{
                 if (dobles != 0) { //si lleva dobles y no ha sacado dobles
                     dobles = 0;
                 }
-                if (contador_carcel > 0) {
+                if (contador_carcel > 0) { //para cuando esta en la carcel
                     contador_carcel--;
                 } else {
                     MueveFicha(player, posicion, tirada);
@@ -268,10 +301,10 @@ public class Game extends Activity{
                         Comprar(player, posicion);
                     }
                 } else {
-                    Pagar(player, posicion);
+                    Pagar(posicion);
                 }
             } else {
-                Evento(player, posicion);
+                Evento(posicion);
             }
             CambiaTurno();
         }else{
@@ -281,7 +314,7 @@ public class Game extends Activity{
         }
     }
 
-    public void Pagar(String player, int posicion){
+    public void Pagar(int posicion){
         int pagar = 0; //TODO sacar lo que hay que pagar
         int dinero_user = 0; //TODO sacar lo que tiene el jugador
         dinero_user -= pagar; //restamos lo que se paga
@@ -295,7 +328,7 @@ public class Game extends Activity{
         //TODO update jugardor
     }
 
-    public void Evento(String player, int posicion){
+    public void Evento(int posicion){
         //TODO lo que sea, sacar carta, etc
         switch (posicion){
             case 31: IrCarcel(player);
@@ -303,12 +336,12 @@ public class Game extends Activity{
             case 3:
             case 18:
             case 34:
-                Carta(player, 1);
+                Carta(1);
                 break;
             case 8:
             case 23:
             case 37:
-                Carta(player, 0);
+                Carta( 0);
                 break;
             case 5:
             case 39:
@@ -319,7 +352,7 @@ public class Game extends Activity{
         }
     }
 
-    public void Carta(String player, int tipo){ //tipo 0: suerte; tipo 1: comunidad
+    public void Carta(int tipo){ //tipo 0: suerte; tipo 1: comunidad
         int suerte = 12;
         int comunidad = 12;
         Random random = new Random();
@@ -338,7 +371,7 @@ public class Game extends Activity{
         String text =  "";  //TODO sacar carta con id de la variable carta
         int precio = 0;//TODO sacar carta con id de la variable carta
         if (precio==0){
-            Evento(player, tipo);
+            Evento(tipo);
         }
         //TODO UPDATE carta a no disponible
     }
@@ -377,7 +410,26 @@ public class Game extends Activity{
     }
 
     public int JugadoresJugando(String idpartida){
-        int n = 0; //TODO count jugadores en la partida con dinero > 0
+        ArrayList<ArrayList<String>> partida = new ArrayList<>();
+        try {
+            partida = jsp.ComprobarDineroJugadoresSala(idpartida);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        int n = 0;
+        if (partida!=null){
+            System.out.println("longitud "+partida.size());
+            for (int i = 0; i < partida.size(); i++) {
+                int dinero = Integer.parseInt(partida.get(i).get(2).toString());
+                if (dinero>0){
+                    n++;
+                }
+            }
+        }
         return n;
     }
 
@@ -418,8 +470,8 @@ public class Game extends Activity{
                     @Override
                     public void run() {
                         btn_dado.setVisibility(View.VISIBLE);
-                        btn_propiedades.setVisibility(View.VISIBLE);
                         btn_dado.setEnabled(true);
+                        btn_propiedades.setVisibility(View.VISIBLE);
                         btn_propiedades.setEnabled(true);
                         tv_dinero.setText(dinero_base+moneda);
                     }
@@ -427,8 +479,8 @@ public class Game extends Activity{
 
             }
         };
-        Thread espera = new Thread(runnable);
-        espera.start();
+        Thread esperajugadores = new Thread(runnable);
+        esperajugadores.start();
     }
 
     private void ThreadWaitingChanges() { //hilo espera que cambie el turno para repintar el tablero
@@ -437,7 +489,7 @@ public class Game extends Activity{
             public void run() {
                 int turno = 0; //TODO sacar jugadores from partida
                 int turno_actual = turno;
-                //Espera hasta que los jugadores llenen la sala
+                //Espera hasta que cambie el turno
                 while (turno == turno_actual) {
                     try {
                         Thread.sleep(4000);
@@ -456,7 +508,35 @@ public class Game extends Activity{
 
             }
         };
-        Thread espera = new Thread(runnable);
-        espera.start();
+        Thread cambioturno = new Thread(runnable);
+        cambioturno.start();
+    }
+
+    private void ThreadWaitingTurn() { //hilo espera que cambie el turno para repintar el tablero
+        final Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            public void run() {
+                int turno_actual = 0; //TODO sacar turno from partida
+                int turno = 0; //TODO sacar turno from jugadores
+                //Espera hasta que los jugadores llenen la sala
+                while (turno != turno_actual) {
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    turno_actual = 0; //TODO sacar turno from partida
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Turno();
+                    }
+                });
+
+            }
+        };
+        Thread tuturno = new Thread(runnable);
+        tuturno.start();
     }
 }

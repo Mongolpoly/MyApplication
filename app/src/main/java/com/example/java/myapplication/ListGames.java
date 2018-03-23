@@ -82,9 +82,9 @@ public class ListGames extends Activity {
                         TextView jugadores = (TextView) view.findViewById(R.id.jugadores);
 
                         String maxjugadores = jugadores.getText().toString().substring(2,3);
-
+                        i.putExtra("maxjugadores", Integer.parseInt(maxjugadores));
                         i.putExtra("idpartida", Integer.parseInt(sala.getText().toString()));
-                        i.putExtra("jugadores", Integer.parseInt(maxjugadores));
+                        i.putExtra("jugadores", Integer.parseInt(jugadores.getText().toString().substring(0,1)));
                         i.putExtra("city", ciudad.getText().toString());
                         startActivity(i);
                     } else {
@@ -122,9 +122,8 @@ public class ListGames extends Activity {
     }
 
     public boolean unirsepartida(int pos) {
-
-        int maxjugadores = Integer.parseInt(partidas.get(pos-1).get(2).toString());
-        int jugadores = Integer.parseInt(partidas.get(pos-1).get(3).toString());
+        int maxjugadores = Integer.parseInt(partidas.get(pos).get(2).toString());
+        int jugadores = Integer.parseInt(partidas.get(pos).get(3).toString());
          if (maxjugadores>=jugadores+1) {
              return TRUE;
          }else{

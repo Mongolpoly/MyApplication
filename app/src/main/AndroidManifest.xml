@@ -44,6 +44,7 @@
         <activity
             android:name=".CreateGame"
             android:label="@string/create_game"
+            android:noHistory="true"
             android:theme="@android:style/Theme.DeviceDefault.Light.DarkActionBar"
             android:parentActivityName=".ListGames">
             <meta-data
@@ -53,6 +54,7 @@
         <activity
             android:name=".JoinGame"
             android:label="@string/join_game"
+            android:noHistory="true"
             android:theme="@android:style/Theme.DeviceDefault.Light.DarkActionBar"
             android:parentActivityName=".ListGames">
             <meta-data

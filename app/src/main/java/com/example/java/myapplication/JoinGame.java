@@ -19,9 +19,10 @@ import java.util.concurrent.ExecutionException;
 
 public class JoinGame extends Activity {
 
-    String user, city, idpartida;
-    int jugadores;
+    String user, city;
+    int maxjugadores, jugadores, idpartida;
     ArrayList<String> disponibles;
+    JSONParser jsp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +31,13 @@ public class JoinGame extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         user = getIntent().getStringExtra("user");
         city = getIntent().getStringExtra("city");
-        idpartida = getIntent().getStringExtra("idpartida");
+        idpartida = getIntent().getIntExtra("idpartida",-1);
         jugadores = getIntent().getIntExtra("jugadores", 0);
+        maxjugadores = getIntent().getIntExtra("maxjugadores", 0);
         final Spinner spinner = findViewById(R.id.spinner_join);
-        JSONParser jsp = new JSONParser();
+        jsp = new JSONParser();
         try {
-            disponibles = jsp.ComprobarFichaPartida(idpartida);
+            disponibles = jsp.ComprobarFichaPartida(String.valueOf(idpartida));
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -127,8 +129,17 @@ public class JoinGame extends Activity {
     }
 
     private boolean unirsePartida(int color) {
-        int jugadores_actuales = 2;//TODO SACAR JUGADORES MAXIMOS DE LA PARTIDA EN ESTE MOMENTO
-        if (jugadores>=jugadores_actuales+1){
+        int jugadores_actuales = 0;
+        try {
+            jugadores_actuales = jsp.comprobarJugadoresSala(String.valueOf(idpartida)).size();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (maxjugadores>=jugadores_actuales+1){
             return true;
         } else {
             return false;
