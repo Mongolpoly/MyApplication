@@ -37,4 +37,5 @@
     <string name="user_alredy">Der Benutzer existiert bereits</string>
     <string name="turn">Du bist dran</string>
     <string name="exit">Bitte drücken Sie erneut zum Beenden</string>
+    <string name="noturn">Warte bis du an der Reihe bist</string>
 </resources>

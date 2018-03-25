@@ -37,4 +37,5 @@
     <string name="user_alredy">L\'utente esiste già</string>
     <string name="turn">È il tuo turno</string>
     <string name="exit">Per favore, premi di nuovo per uscire</string>
+    <string name="noturn">Aspetto il tuo turno</string>
 </resources>

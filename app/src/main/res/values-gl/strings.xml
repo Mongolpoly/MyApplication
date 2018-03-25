@@ -37,4 +37,5 @@
     <string name="user_alredy">O usuario xa existe</string>
     <string name="turn">É o teu quenda</string>
     <string name="exit">Presione de novo para atrás</string>
+    <string name="noturn">Agardando a túa quenda</string>
 </resources>

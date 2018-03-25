@@ -51,7 +51,12 @@ public class CustomList extends BaseAdapter {
         if(position!=0) {
             numsala.setText(String.valueOf(position));
             jugadores.setText(listItem.get(position).get(3).toString() + "/" + listItem.get(position).get(2).toString());
-            rl.setBackgroundColor(ContextCompat.getColor(mContext, R.color.listado));
+            //rl.setBackgroundColor(ContextCompat.getColor(mContext, R.color.listado));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                rl.setBackground(ContextCompat.getDrawable(mContext,R.drawable.joingamebutton));
+            }else{
+                rl.setBackgroundDrawable(ContextCompat.getDrawable(mContext,R.drawable.joingamebutton));
+            }
         }else{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 rl.setBackground(ContextCompat.getDrawable(mContext,R.drawable.newgamebutton));

@@ -26,7 +26,7 @@ public class Game extends Activity{
     private int jugadores, conversor, dinero_base=750;
     private boolean close = false;
     private Button btn_dado, btn_propiedades;
-    private TextView tv_dinero;
+    private TextView tv_dinero, tv_turno;
     private JSONParser jsp;
 
     @Override
@@ -68,7 +68,9 @@ public class Game extends Activity{
         });
         btn_propiedades = (Button) findViewById(R.id.btn_propiedades);
         tv_dinero = (TextView) findViewById(R.id.tv_dinero);
+        tv_turno = (TextView) findViewById(R.id.tv_turno);
         tv_dinero.setTextColor(getResources().getColor(R.color.black));
+        tv_turno.setTextColor(getResources().getColor(R.color.black));
     }
 
     @Override
@@ -193,34 +195,6 @@ public class Game extends Activity{
         }
     }*/
 
-    public void CambiaTurno(){
-        /*int turno = 0; //TODO select turno from partida;
-        turno++;
-        if (turno>JugadoresJugando(idpartida)){ //cuando sea el turno del último vuelve al primero
-            turno = 1;
-        }
-        int dinero = 0; //TODO select dinero from partida_jugadores where turno=turno
-        while (dinero==0){ //cuando el jugador haya perdido que se salte su turno
-            turno++;
-            dinero = 0; //TODO select dinero from partida_jugadores where turno=turno
-        }*/
-        boolean ok = false;
-        try {
-            if (jsp.actualizarTurno(idpartida, String.valueOf(jugadores))){
-                ok = true;
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (ok){
-            ThreadWaitingChanges();
-            ThreadWaitingTurn();
-        }
-    }
 
     public void MueveFicha(String player, int posicion, int tirada){
         int dinero = 0;//TODO select dinero from partida_jugadores
@@ -234,6 +208,7 @@ public class Game extends Activity{
     public void Turno() {
         if(JugadoresJugando(idpartida)>1){
             btn_dado.setEnabled(true);
+            tv_turno.setText(getString(R.string.turn));
             int posicion = 0; //TODO SELECT FROM partida_jugadores
             int d1 = TiraDado();
             int d2 = TiraDado();
@@ -290,6 +265,37 @@ public class Game extends Activity{
             Intent i = new Intent(Game.this, FinPartida.class);
             i.putExtra("win", true);
             startActivity(i);
+        }
+    }
+
+    public void CambiaTurno(){
+        /*int turno = 0; //TODO select turno from partida;
+        turno++;
+        if (turno>JugadoresJugando(idpartida)){ //cuando sea el turno del último vuelve al primero
+            turno = 1;
+        }
+        int dinero = 0; //TODO select dinero from partida_jugadores where turno=turno
+        while (dinero==0){ //cuando el jugador haya perdido que se salte su turno
+            turno++;
+            dinero = 0; //TODO select dinero from partida_jugadores where turno=turno
+        }*/
+        boolean ok = false;
+        try {
+            if (jsp.actualizarTurno(idpartida, String.valueOf(jugadores))){
+                ok = true;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (ok){
+            ThreadWaitingChanges();
+            ThreadWaitingTurn();
+            tv_turno.setText(getString(R.string.noturn));
+            btn_dado.setEnabled(false);
         }
     }
 
@@ -452,6 +458,7 @@ public class Game extends Activity{
                         btn_dado.setVisibility(View.VISIBLE);
                         btn_propiedades.setVisibility(View.VISIBLE);
                         tv_dinero.setText(dinero_base+moneda);
+                        tv_turno.setVisibility(View.VISIBLE);
                         ThreadWaitingChanges();
                         ThreadWaitingTurn();
                         btn_propiedades.setEnabled(true);

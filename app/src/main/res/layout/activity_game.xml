@@ -30,7 +30,7 @@
         android:id="@+id/Layout2"
         android:layout_below="@+id/Layout1"
         android:layout_width="match_parent"
-        android:layout_height="480dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/lightgreen">
         <Button
@@ -59,14 +59,23 @@
             android:textStyle="bold"
             android:layout_height="wrap_content"
             android:text="@string/waiting"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/Layout3"
+        android:layout_below="@+id/Layout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/lightgreen"
+        android:gravity="bottom">
         <TextView
             android:id="@+id/tv_turno"
-            android:layout_marginTop="15dp"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:textAlignment="center"
             android:textSize="24dp"
             android:textStyle="bold"
             android:layout_height="wrap_content"
-            android:text="@string/waiting"/>
+            android:text="@string/noturn"/>
     </LinearLayout>
 </RelativeLayout>
