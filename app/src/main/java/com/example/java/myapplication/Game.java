@@ -232,8 +232,7 @@ public class Game extends Activity{
     }
 
     public void Turno() {
-        if(JugadoresJugando(idpartida)!=1){
-            System.out.println("token 1");
+        if(JugadoresJugando(idpartida)>1){
             btn_dado.setEnabled(true);
             int posicion = 0; //TODO SELECT FROM partida_jugadores
             int d1 = TiraDado();
@@ -453,12 +452,9 @@ public class Game extends Activity{
                         btn_dado.setVisibility(View.VISIBLE);
                         btn_propiedades.setVisibility(View.VISIBLE);
                         tv_dinero.setText(dinero_base+moneda);
-
-                        btn_dado.setEnabled(true); //QUITAR PORQUE NO ES SU TURNO
-                        btn_propiedades.setEnabled(true); //QUITAR PORQUE NO ES SU TURNO
-
                         ThreadWaitingChanges();
                         ThreadWaitingTurn();
+                        btn_propiedades.setEnabled(true);
                     }
                 });
             }
