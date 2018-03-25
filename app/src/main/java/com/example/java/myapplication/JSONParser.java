@@ -72,7 +72,7 @@ public class JSONParser {
         }
     }
 
-    public int loginusuarios( String nombre, String password) throws InterruptedException, ExecutionException, JSONException {
+    public int loginusuarios(String nombre, String password) throws InterruptedException, ExecutionException, JSONException {
         correcto=true;
         String mensaje = "";
         List<NameValuePair> params = new LinkedList();
@@ -337,6 +337,44 @@ public class JSONParser {
             String respuesta = json.getString("success");
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean EsmiTurno(String idpartida,String jugador) throws InterruptedException, ExecutionException, JSONException {
+        correcto=true;
+        String idjugador="";
+        List<NameValuePair> params = new LinkedList();
+        //isset(isset($_GET['jugador']))
+        params.add(new BasicNameValuePair("jugador",jugador));
+        ConexionHTTPGet c = new ConexionHTTPGet();
+        json = c.makeHttpRequest(con+"db_jugadores.php", params);
+        try {
+            jsonArray = json.getJSONArray("jugadores");
+            JSONObject json = jsonArray.getJSONObject(0);
+            idjugador = json.getString("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        List<NameValuePair> params2 = new LinkedList();
+        //isset(isset($_GET['jugador']))
+        params2.add(new BasicNameValuePair("idsala",idpartida));
+        params2.add(new BasicNameValuePair("idjugador",idjugador));
+        ConexionHTTPGet c2 = new ConexionHTTPGet();
+        json = c.makeHttpRequest(con+"db_comprobar_jugadores_turno.php", params2);
+        try {
+            jsonArray= json.getJSONArray("turno");
+            ArrayList<ArrayList> partida = new ArrayList<>();
+            JSONObject json2 = jsonArray.getJSONObject(0);
+            int turno = json.getInt("turno");
+            if(turno==1){
+                return TRUE;
+            }else{
+                return FALSE;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return FALSE;
         }
     }
 }

@@ -162,9 +162,7 @@ public class Game extends Activity{
         }
     }
 
-    public void Partida(String user){
-        //Carga();
-        //TODO llamar a usuarios
+    /*public void Partida(String user){
         dineros = new int[jugadores];
         posiciones = new int[jugadores];
         players = new int[jugadores];
@@ -173,25 +171,11 @@ public class Game extends Activity{
             players[i] = 0;
             posiciones[i] = 1;
         }
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
         //TODO quitar accesible de partida
         OrdenTurno();
-        Turno();
-    }
+    }*/
 
-    public void OrdenTurno(){
+    /*public void OrdenTurno(){
         int[] idjugadores = new int[jugadores]; //TODO sacar el ID de la BBDD
         int[] orden = new int[jugadores];
         int[] turno = new int[jugadores];
@@ -207,22 +191,19 @@ public class Game extends Activity{
             orden[ran] = orden[n-1]; //sobreescribe el que acaba de salir
             n--;
         }
-        for (int i = 0; i < jugadores; i++) {
-            //TODO UPDATE turno SET('turno[i]') FROM partida_jugadores WHERE id=='idjugadores[i]'
-        }
-    }
+    }*/
 
     public void CambiaTurno(){
-        int turno = 0; //TODO select turno from partida;
+        /*int turno = 0; //TODO select turno from partida;
         turno++;
         if (turno>JugadoresJugando(idpartida)){ //cuando sea el turno del último vuelve al primero
             turno = 1;
         }
         int dinero = 0; //TODO select dinero from partida_jugadores where turno=turno
-        while (dinero==0){
+        while (dinero==0){ //cuando el jugador haya perdido que se salte su turno
             turno++;
             dinero = 0; //TODO select dinero from partida_jugadores where turno=turno
-        }
+        }*/
         boolean ok = false;
         try {
             if (jsp.actualizarTurno(idpartida, String.valueOf(jugadores))){
@@ -236,7 +217,6 @@ public class Game extends Activity{
             e.printStackTrace();
         }
         if (ok){
-            //TODO UPDATE turno IN partida
             ThreadWaitingChanges();
             ThreadWaitingTurn();
         }
@@ -469,14 +449,18 @@ public class Game extends Activity{
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        //Coloca los botones y cambia el texto por el dinero
                         btn_dado.setVisibility(View.VISIBLE);
-                        btn_dado.setEnabled(true);
                         btn_propiedades.setVisibility(View.VISIBLE);
-                        btn_propiedades.setEnabled(true);
                         tv_dinero.setText(dinero_base+moneda);
+
+                        btn_dado.setEnabled(true); //QUITAR PORQUE NO ES SU TURNO
+                        btn_propiedades.setEnabled(true); //QUITAR PORQUE NO ES SU TURNO
+
+                        ThreadWaitingChanges();
+                        ThreadWaitingTurn();
                     }
                 });
-
             }
         };
         Thread esperajugadores = new Thread(runnable);
@@ -516,16 +500,28 @@ public class Game extends Activity{
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             public void run() {
-                int turno_actual = 0; //TODO sacar turno from partida
-                int turno = 0; //TODO sacar turno from jugadores
-                //Espera hasta que los jugadores llenen la sala
-                while (turno != turno_actual) {
+                //Espera a que sea tu turno
+                boolean turno = false;
+                try {
+                    turno = jsp.EsmiTurno(idpartida,player);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                while (!turno) {
                     try {
                         Thread.sleep(4000);
+                        turno = jsp.EsmiTurno(idpartida,player);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    turno_actual = 0; //TODO sacar turno from partida
                 }
                 runOnUiThread(new Runnable() {
                     @Override
