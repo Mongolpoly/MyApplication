@@ -1,5 +1,6 @@
 package com.example.java.myapplication;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -35,7 +37,7 @@ public class Game extends Activity{
     private JSONParser jsp;
     private Dialog myDialog;
     private ImageView gif_dados;
-    private AnimationDrawable giftirada;
+    private AnimationDrawable animatirada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,17 +74,19 @@ public class Game extends Activity{
         AnimationDrawable animagif = (AnimationDrawable) gif_dados.getBackground();
         animagif.start();
         btn_dado = (ImageView) findViewById(R.id.btn_dados);
-        btn_dado.setBackgroundResource(R.drawable.dados); //TODO cambiar por el gif creado y meter color imagen fondo gris
-        giftirada = (AnimationDrawable) btn_dado.getBackground();
-        giftirada.start();
+        btn_dado.setBackgroundResource(R.drawable.tirada);
+        animatirada = (AnimationDrawable) btn_dado.getBackground();
+        animatirada.start();
         btn_dado.setOnClickListener(new View.OnClickListener() { //listener del boton del dado
             @Override
             public void onClick(View view) {
-                giftirada.stop(); //para que no enseñe los dados
-                btn_dado.setEnabled(false);//desactiva el dado para que no vuelva a tirar
+                animatirada.stop(); //para que no enseñe los dados
+                btn_dado.setBackgroundResource(R.color.grey);
+                btn_dado.setVisibility(View.INVISIBLE);//desactiva el dado para que no vuelva a tirar
                 gif_dados.setVisibility(View.VISIBLE);
+
                 ThreadGif();
-                //TODO mostrar tirada
+                //TODO mostrar tirada en gif_dados
             }
         });
         btn_propiedades = (Button) findViewById(R.id.btn_propiedades);
@@ -571,8 +575,8 @@ public class Game extends Activity{
                     @Override
                     public void run() {
                         btn_dado.setBackgroundResource(R.drawable.dados);
-                        giftirada = (AnimationDrawable) btn_dado.getBackground();
-                        giftirada.start();
+                        animatirada = (AnimationDrawable) btn_dado.getBackground();
+                        animatirada.start();
                         Turno();
                     }
                 });
