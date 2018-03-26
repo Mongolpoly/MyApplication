@@ -38,4 +38,6 @@
     <string name="turn">Zure txanda da</string>
     <string name="exit">Sakatu berriro berriro irteteko</string>
     <string name="noturn">Zure txanda zain</string>
+    <string name="Buy">Erosi</string>
+    <string name="Manage">Kudeatu</string>
 </resources>

@@ -38,4 +38,6 @@
     <string name="turn">Du bist dran</string>
     <string name="exit">Bitte drücken Sie erneut zum Beenden</string>
     <string name="noturn">Warte bis du an der Reihe bist</string>
+    <string name="Buy">"Kaufen "</string>
+    <string name="Manage">"Verwalten "</string>
 </resources>
