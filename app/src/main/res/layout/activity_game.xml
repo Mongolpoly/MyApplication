@@ -11,17 +11,26 @@
         android:background="@drawable/tablero">
 
         <RelativeLayout
-            android:layout_width="117dp"
-            android:layout_height="117dp"
-            android:layout_marginLeft="155dp"
-            android:layout_marginTop="175dp">
+            android:layout_width="150dp"
+            android:layout_height="75dp"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="185dp">
 
             <ImageView
                 android:id="@+id/loadingView"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true" />
+
+            <ImageView
+                android:id="@+id/loadingView2"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true" />
         </RelativeLayout>
 
 

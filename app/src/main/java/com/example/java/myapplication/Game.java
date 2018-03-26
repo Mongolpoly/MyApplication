@@ -1,6 +1,5 @@
 package com.example.java.myapplication;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -9,34 +8,28 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
 import java.util.concurrent.ExecutionException;
 
 public class Game extends Activity{
 
     private static String player, moneda, idpartida;
-    private int jugadores, conversor, dinero_base=750;
+    private int d1, d2, jugadores, conversor, dinero_base=750;
     private boolean close = false;
-    private ImageView btn_dado;
     private Button btn_propiedades;
     private TextView tv_dinero, tv_turno;
     private JSONParser jsp;
     private Dialog myDialog;
-    private ImageView gif_dados;
+    private ImageView gif_dados, gif_dados2, btn_dado;
     private AnimationDrawable animatirada;
 
     @Override
@@ -68,6 +61,7 @@ public class Game extends Activity{
         //Sacar el factor de conversion
         conversor = Conversor(city);
         dinero_base = dinero_base*conversor;
+        gif_dados2 = (ImageView) findViewById(R.id.loadingView2);
         gif_dados = (ImageView) findViewById(R.id.loadingView);
         gif_dados.setBackgroundResource(R.drawable.dados);
         gif_dados.setVisibility(View.INVISIBLE);
@@ -84,7 +78,6 @@ public class Game extends Activity{
                 btn_dado.setBackgroundResource(R.color.grey);
                 btn_dado.setVisibility(View.INVISIBLE);//desactiva el dado para que no vuelva a tirar
                 gif_dados.setVisibility(View.VISIBLE);
-
                 ThreadGif();
                 //TODO mostrar tirada en gif_dados
             }
@@ -235,10 +228,11 @@ public class Game extends Activity{
     public void Turno() {
         if(JugadoresJugando(idpartida)>1){
             btn_dado.setEnabled(true);
+            gif_dados.setVisibility(View.VISIBLE);
             tv_turno.setText(getString(R.string.turn));
             int posicion = 0; //TODO SELECT FROM partida_jugadores
-            int d1 = TiraDado();
-            int d2 = TiraDado();
+            d1 = TiraDado();
+            d2 = TiraDado();
             int tirada = d1 + d2;
             int dobles = 0; //TODO SELECT FROM partida_jugadores
             try {
@@ -323,6 +317,8 @@ public class Game extends Activity{
             ThreadWaitingTurn();
             tv_turno.setText(getString(R.string.noturn));
             btn_dado.setEnabled(false);
+            gif_dados.setVisibility(View.INVISIBLE);
+            gif_dados2.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -600,12 +596,40 @@ public class Game extends Activity{
                     @Override
                     public void run() {
                         //Oculta el gif
-                        gif_dados.setVisibility(View.INVISIBLE);
+                        //gif_dados.setVisibility(View.INVISIBLE);
+                        /*Drawable[] layers = new Drawable[2];
+                        layers[0] = getResources().getDrawable(Dado(d1));
+                        layers[1] = getResources().getDrawable(Dado(d2));
+                        LayerDrawable layerDrawable = new LayerDrawable(layers);
+                        gif_dados.setImageDrawable(layerDrawable);*/
+                        gif_dados.setVisibility(View.VISIBLE);
+                        gif_dados2.setVisibility(View.VISIBLE);
+                        gif_dados.setImageDrawable(getResources().getDrawable(Dado(d1)));
+                        gif_dados2.setImageDrawable(getResources().getDrawable(Dado(d2)));
                     }
                 });
             }
         };
         Thread gif = new Thread(runnable);
         gif.start();
+    }
+
+    private static int Dado(int dado){
+        switch (dado){
+            case 1:
+                return R.drawable.dice_1;
+            case 2:
+                return R.drawable.dice_2;
+            case 3:
+                return R.drawable.dice_3;
+            case 4:
+                return R.drawable.dice_4;
+            case 5:
+                return R.drawable.dice_5;
+            case 6:
+                return R.drawable.dice_6;
+            default:
+                return R.drawable.dice_1;
+        }
     }
 }
