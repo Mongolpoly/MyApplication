@@ -60,7 +60,8 @@
         </activity>
         <activity
             android:name=".Game"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        </activity>
         <activity
             android:name=".FinPartida"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />

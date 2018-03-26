@@ -42,4 +42,6 @@
     <string name="turn">It\'s your turn</string>
     <string name="noturn">Waiting for your turn</string>
     <string name="exit">Please press back again to exit</string>
+    <string name="Buy">Buy</string>
+    <string name="Manage">Manage</string>
 </resources>
