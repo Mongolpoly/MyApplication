@@ -38,4 +38,6 @@
     <string name="turn">És el teu torn</string>
     <string name="exit">Torneu a prémer una altra vegada per sortir</string>
     <string name="noturn">Esperant el teu torn</string>
+    <string name="Buy">Compra</string>
+    <string name="Manage">Gestiona</string>
 </resources>

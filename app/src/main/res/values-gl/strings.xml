@@ -38,4 +38,6 @@
     <string name="turn">É o teu quenda</string>
     <string name="exit">Presione de novo para atrás</string>
     <string name="noturn">Agardando a túa quenda</string>
+    <string name="Buy">Compra</string>
+    <string name="Manage">Xestionar</string>
 </resources>

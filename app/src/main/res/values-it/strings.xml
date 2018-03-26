@@ -38,4 +38,6 @@
     <string name="turn">È il tuo turno</string>
     <string name="exit">Per favore, premi di nuovo per uscire</string>
     <string name="noturn">Aspetto il tuo turno</string>
+    <string name="Buy">Acquistare</string>
+    <string name="Manage">"Gestire "</string>
 </resources>
