@@ -2,8 +2,11 @@ package com.example.java.myapplication;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -28,6 +31,7 @@ public class Game extends Activity{
     private Button btn_dado, btn_propiedades;
     private TextView tv_dinero, tv_turno;
     private JSONParser jsp;
+    private Dialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class Game extends Activity{
         setContentView(R.layout.activity_game);
         //inicializar el json
         jsp = new JSONParser();
+
         //Recoger el intent
         player = getIntent().getStringExtra("user");
         int ficha = getIntent().getIntExtra("ficha", 1);
@@ -71,6 +76,7 @@ public class Game extends Activity{
         tv_turno = (TextView) findViewById(R.id.tv_turno);
         tv_dinero.setTextColor(getResources().getColor(R.color.black));
         tv_turno.setTextColor(getResources().getColor(R.color.black));
+        myDialog = new Dialog(this);
     }
 
     @Override
@@ -426,6 +432,23 @@ public class Game extends Activity{
         });
     }
 
+
+    public void ShowPopup(View v) {
+        TextView txtclose;
+        Button btnFollow;
+        myDialog.setContentView(R.layout.activity_popup);
+        txtclose =(TextView) myDialog.findViewById(R.id.xcerrar);
+        btnFollow = (Button) myDialog.findViewById(R.id.buybutton);
+        txtclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
+    }
+
     private void ThreadWaitingUsers() { //hilo esperar a que entren los jugadores
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
@@ -455,6 +478,7 @@ public class Game extends Activity{
                     @Override
                     public void run() {
                         //Coloca los botones y cambia el texto por el dinero
+                        btn_dado.setEnabled(true);
                         btn_dado.setVisibility(View.VISIBLE);
                         btn_propiedades.setVisibility(View.VISIBLE);
                         tv_dinero.setText(dinero_base+moneda);

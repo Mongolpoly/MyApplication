@@ -49,6 +49,7 @@
             android:layout_height="100dp"
             android:enabled="false"
             android:visibility="gone"
+            android:onClick="ShowPopup"
             android:text="Ver Propiedades"/>
         <TextView
             android:id="@+id/tv_dinero"
