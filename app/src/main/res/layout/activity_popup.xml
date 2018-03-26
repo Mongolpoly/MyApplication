@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="350dp"
+    android:layout_height="475dp"
+    android:background="@color/colorPrimaryDark"
+    android:padding="5dp"
+    android:layout_gravity="center">
+    <TextView
+        android:id="@+id/xcerrar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/white"
+        android:text="X"
+        android:textStyle="bold"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:background="@drawable/circle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="278dp"
+            android:layout_height="66dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="66dp"
+            android:background="@color/bluelight"
+            android:layout_gravity="center"
+            android:padding="4dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewCalle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="10pt"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewPrecio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="7pt" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginTop="7dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:layout_weight="1"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:background="@color/bluelight"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/casa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:background="@color/bluelight"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="2"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/casa" />
+            </LinearLayout><LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:background="@color/bluelight"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="3"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="34dp"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:src="@drawable/casa" />
+        </LinearLayout><LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:background="@color/bluelight"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="4"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="34dp"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:src="@drawable/casa" />
+        </LinearLayout><LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:background="@color/bluelight"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="34dp"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:src="@drawable/hotel" />
+        </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:layout_weight="1"
+            android:background="@color/bluelight"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:background="@color/orange"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:background="@color/orange"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout><LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout><LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </LinearLayout><LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="42dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@color/bluelight"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/hipoteca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="90dp"
+            android:padding="3dp"
+            android:text="HIPOTECA:"
+            android:textColor="@color/white"
+            android:textSize="12pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/precioHipoteca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_marginTop="7dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/managebutton"
+            android:layout_width="10dp"
+            android:backgroundTint="@color/black"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttonstyle"
+            android:text="@string/Manage"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/buybutton"
+            android:layout_width="10dp"
+            android:backgroundTint="@color/black"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttonstyle"
+            android:text="@string/Buy"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+</LinearLayout>
