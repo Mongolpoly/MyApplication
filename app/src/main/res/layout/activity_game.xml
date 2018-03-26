@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/lightgreen">
-        <ImageButton
+        <ImageView
             android:id="@+id/btn_dados"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="10dp"

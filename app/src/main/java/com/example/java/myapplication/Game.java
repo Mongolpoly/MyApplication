@@ -29,7 +29,7 @@ public class Game extends Activity{
     private static String player, moneda, idpartida;
     private int jugadores, conversor, dinero_base=750;
     private boolean close = false;
-    private ImageButton btn_dado;
+    private ImageView btn_dado;
     private Button btn_propiedades;
     private TextView tv_dinero, tv_turno;
     private JSONParser jsp;
@@ -71,10 +71,10 @@ public class Game extends Activity{
         gif_dados.setVisibility(View.INVISIBLE);
         AnimationDrawable animagif = (AnimationDrawable) gif_dados.getBackground();
         animagif.start();
-        btn_dado.setBackgroundResource(R.drawable.dados);
+        btn_dado = (ImageView) findViewById(R.id.btn_dados);
+        btn_dado.setBackgroundResource(R.drawable.dados); //TODO cambiar por el gif creado y meter color imagen fondo gris
         giftirada = (AnimationDrawable) btn_dado.getBackground();
         giftirada.start();
-        btn_dado = (ImageButton) findViewById(R.id.btn_dados);
         btn_dado.setOnClickListener(new View.OnClickListener() { //listener del boton del dado
             @Override
             public void onClick(View view) {
