@@ -35,6 +35,7 @@ public class Game extends Activity{
     private JSONParser jsp;
     private Dialog myDialog;
     private ImageView gif_dados;
+    private AnimationDrawable giftirada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,15 +69,20 @@ public class Game extends Activity{
         gif_dados = (ImageView) findViewById(R.id.loadingView);
         gif_dados.setBackgroundResource(R.drawable.dados);
         gif_dados.setVisibility(View.INVISIBLE);
-        AnimationDrawable anime = (AnimationDrawable) gif_dados.getBackground();
-        anime.start();
+        AnimationDrawable animagif = (AnimationDrawable) gif_dados.getBackground();
+        animagif.start();
+        btn_dado.setBackgroundResource(R.drawable.dados);
+        giftirada = (AnimationDrawable) btn_dado.getBackground();
+        giftirada.start();
         btn_dado = (ImageButton) findViewById(R.id.btn_dados);
         btn_dado.setOnClickListener(new View.OnClickListener() { //listener del boton del dado
             @Override
             public void onClick(View view) {
+                giftirada.stop(); //para que no enseñe los dados
                 btn_dado.setEnabled(false);//desactiva el dado para que no vuelva a tirar
                 gif_dados.setVisibility(View.VISIBLE);
                 ThreadGif();
+                //TODO mostrar tirada
             }
         });
         btn_propiedades = (Button) findViewById(R.id.btn_propiedades);
@@ -217,7 +223,9 @@ public class Game extends Activity{
         if (posicion>40){ //si pasas por la casilla de salida
             posicion-=40;
             dinero += 200;
+            //TODO UPDATE DINERO
         }
+        //TODO UPDATE POSICION
     }
 
     public void Turno() {
@@ -562,6 +570,9 @@ public class Game extends Activity{
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        btn_dado.setBackgroundResource(R.drawable.dados);
+                        giftirada = (AnimationDrawable) btn_dado.getBackground();
+                        giftirada.start();
                         Turno();
                     }
                 });
@@ -576,7 +587,6 @@ public class Game extends Activity{
         Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             public void run() {
-                JSONParser jsp = new JSONParser();
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
