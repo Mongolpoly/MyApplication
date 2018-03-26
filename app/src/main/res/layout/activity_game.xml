@@ -12,7 +12,7 @@
 
         <RelativeLayout
             android:layout_width="117dp"
-            android:layout_height="116dp"
+            android:layout_height="117dp"
             android:layout_marginLeft="155dp"
             android:layout_marginTop="175dp">
 
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/lightgreen">
-        <Button
+        <ImageButton
             android:id="@+id/btn_dados"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="10dp"

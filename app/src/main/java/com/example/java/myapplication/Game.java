@@ -6,32 +6,35 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
 import java.util.concurrent.ExecutionException;
 
 public class Game extends Activity{
 
     private static String player, moneda, idpartida;
-    private static int[] dineros, players, posiciones;
-
     private int jugadores, conversor, dinero_base=750;
     private boolean close = false;
-    private Button btn_dado, btn_propiedades;
+    private ImageButton btn_dado;
+    private Button btn_propiedades;
     private TextView tv_dinero, tv_turno;
     private JSONParser jsp;
     private Dialog myDialog;
+    private ImageView gif_dados;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,6 @@ public class Game extends Activity{
         setContentView(R.layout.activity_game);
         //inicializar el json
         jsp = new JSONParser();
-
         //Recoger el intent
         player = getIntent().getStringExtra("user");
         int ficha = getIntent().getIntExtra("ficha", 1);
@@ -63,12 +65,18 @@ public class Game extends Activity{
         //Sacar el factor de conversion
         conversor = Conversor(city);
         dinero_base = dinero_base*conversor;
-        btn_dado = (Button) findViewById(R.id.btn_dados);
+        gif_dados = (ImageView) findViewById(R.id.loadingView);
+        gif_dados.setBackgroundResource(R.drawable.dados);
+        gif_dados.setVisibility(View.INVISIBLE);
+        AnimationDrawable anime = (AnimationDrawable) gif_dados.getBackground();
+        anime.start();
+        btn_dado = (ImageButton) findViewById(R.id.btn_dados);
         btn_dado.setOnClickListener(new View.OnClickListener() { //listener del boton del dado
             @Override
             public void onClick(View view) {
                 btn_dado.setEnabled(false);//desactiva el dado para que no vuelva a tirar
-                Turno();
+                gif_dados.setVisibility(View.VISIBLE);
+                ThreadGif();
             }
         });
         btn_propiedades = (Button) findViewById(R.id.btn_propiedades);
@@ -76,6 +84,7 @@ public class Game extends Activity{
         tv_turno = (TextView) findViewById(R.id.tv_turno);
         tv_dinero.setTextColor(getResources().getColor(R.color.black));
         tv_turno.setTextColor(getResources().getColor(R.color.black));
+        //dialogo de propiedades
         myDialog = new Dialog(this);
     }
 
@@ -561,5 +570,28 @@ public class Game extends Activity{
         };
         Thread tuturno = new Thread(runnable);
         tuturno.start();
+    }
+
+    private void ThreadGif() { //hilo mostrar gif
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            public void run() {
+                JSONParser jsp = new JSONParser();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Oculta el gif
+                        gif_dados.setVisibility(View.INVISIBLE);
+                    }
+                });
+            }
+        };
+        Thread gif = new Thread(runnable);
+        gif.start();
     }
 }
